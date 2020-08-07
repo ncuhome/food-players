@@ -56,7 +56,7 @@ export default {
         console.log(temp)
         if (temp.data.status !== 1) return this.$message.error('登陆失败')
         window.sessionStorage.setItem('token', temp.data)
-        this.$router.push('/mainPage')
+        this.$router.push('/firstPage')
         return this.$message.success('登陆成功')
       })
     },
