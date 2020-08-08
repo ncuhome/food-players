@@ -1,14 +1,11 @@
 <template>
   <div class="first_c">
+    <!--规则页面-->
     <div class="title_img">
       <img src="/img/美食玩家.png" alt="美食玩家">
       <img class="t_two" src="/img/t2.png" alt="food players">
     </div>
-    <div class="choose">
-      <el-button type="primary" round>开始游戏</el-button>
-      <br>
-      <el-button type="success" round>查看图鉴</el-button>
-    </div>
+    <div class="tip">提示</div>
   </div>
 </template>
 
@@ -16,7 +13,7 @@
 // @ is an alias to /src
 
 export default {
-  name: 'firstPage',
+  name: 'Rule',
   components: {
   }
 }
@@ -39,9 +36,12 @@ export default {
         left 50%
         position absolute
         transform translate(-50%, -50%)
-    .choose
+    .tip
+      background-color #ffffff
+      width 70%
+      height 3rem
       position absolute
-      top 55%
       left 50%
+      top 55%
       transform translate(-50%, -50%)
 </style>

@@ -1,5 +1,6 @@
 <template>
   <div class="login_c">
+    <!--仅用于管理员登录-->
     <div class="title_img">
       <img src="/img/美食玩家.png" alt="美食玩家">
       <img class="t_two" src="/img/t2.png" alt="food players">
