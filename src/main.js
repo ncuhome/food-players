@@ -9,7 +9,11 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './assets/style/reset.css'
 import './assets/style/border.css'
 import './assets/iconfont/iconfont.css'
+//引入南大家园数据
+import Miracle from 'incu-webview'
 
+const isApp = Miracle.isApp()
+console.log(isApp)
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 
