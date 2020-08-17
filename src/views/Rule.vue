@@ -1,11 +1,30 @@
 <template>
   <div class="first_c">
     <!--规则页面-->
-    <div class="title_img">
-      <img src="/img/美食玩家.png" alt="美食玩家">
-      <img class="t_two" src="/img/t2.png" alt="food players">
+    <div class="tip">
+      Hi 欢迎来到美食世界
+      <br>
+      你是第9位玩家
     </div>
-    <div class="tip">提示</div>
+    <div 
+    :style="{
+        height: rule.height+'%',
+        width: rule.width+'%',
+        backgroundColor: rule.backgroundColor,
+        top: rule.top+'%',
+        position: rule.position,
+        fontSize: rule.fontSize+'px',
+        color: rule.color,
+        borderTopRightRadius: rule.radius+'px',
+        borderTopLeftRadius: rule.radius+'px',
+        padding: rule.padding+'px',
+        boxSizing: rule.boxSizing,
+      }"
+    >
+      在游戏中，你需要选出你看到的美食名称；中途允许退出游戏，但退出后只允许查看自己参与部分的答案，这会让你错失认识更多南大美食的机会哦～
+完整参与游戏，并答对全部美食，还可获得小家园周边一份哦～
+现在让我们进入游戏吧！
+    </div>
   </div>
 </template>
 
@@ -15,6 +34,22 @@
 export default {
   name: 'Rule',
   components: {
+  },
+  data () {
+    return {
+      rule: {
+        height: 50,
+        width: 100,
+        backgroundColor: '#FFC21C',
+        top: 50,
+        position: 'absolute',
+        fontSize: 18,
+        color: '#ffffff',
+        radius: 30,
+        padding: 30,
+        boxSizing: 'border-box'
+      }
+    }
   }
 }
 </script>
@@ -26,22 +61,13 @@ export default {
     width 100%
     height 100%
     font-size .5rem
-    .title_img
-      position absolute
-      left 50%
-      top 25%
-      transform translate(-50%, -50%)
-      .t_two
-        top 60%
-        left 50%
-        position absolute
-        transform translate(-50%, -50%)
     .tip
-      background-color #ffffff
       width 70%
       height 3rem
       position absolute
       left 50%
-      top 55%
+      top 45%
       transform translate(-50%, -50%)
+      color #ffffff
+      font-size .25rem
 </style>

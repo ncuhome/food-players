@@ -3,17 +3,33 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
+// 引入element-ui依赖
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-// 引入外部样式
+// 引入外部样式,消除浏览器默认样式
 import './assets/style/reset.css'
 import './assets/style/border.css'
+// 引入图标样式
 import './assets/iconfont/iconfont.css'
-//引入南大家园数据
+// 引入南大家园数据
 import Miracle from 'incu-webview'
+// 引入cookie
+import cookie from '@/assets/js/cookie.js'
+// 引入vue-cookies插件
+import VueCookies from 'vue-cookies'
+// 引入axios依赖
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+
+//挂载依赖
+Vue.use(VueAxios, axios)
+
+Vue.use(VueCookies)
+Vue.prototype.$global=cookie; 
 
 const isApp = Miracle.isApp()
 console.log(isApp)
+
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 

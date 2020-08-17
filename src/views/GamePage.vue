@@ -1,15 +1,16 @@
 <template>
   <div class="first_c">
     <!--游戏页面-->
-    <div class="title_img">
-      <img src="/img/美食玩家.png" alt="美食玩家">
-      <img class="t_two" src="/img/t2.png" alt="food players">
+    <div class="game">
+      <div class="game-prin">
+        <div class="game-row"></div>
+        <div class="game-item"></div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 
 export default {
   name: 'GamePage',
@@ -25,14 +26,4 @@ export default {
     width 100%
     height 100%
     font-size .5rem
-    .title_img
-      position absolute
-      left 50%
-      top 25%
-      transform translate(-50%, -50%)
-      .t_two
-        top 60%
-        left 50%
-        position absolute
-        transform translate(-50%, -50%)
 </style>
