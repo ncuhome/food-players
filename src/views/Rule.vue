@@ -6,27 +6,38 @@
       <br>
       你是第9位玩家
     </div>
-    <button v-on:click="slipup"></button>
-    <div 
-    :style="{
-        height: rule.height+'%',
-        width: rule.width+'%',
-        backgroundColor: rule.backgroundColor,
-        position: rule.position,
-        bottom: rule.bottom+'%',
-        fontSize: rule.fontSize+'px',
-        color: rule.color,
-        borderTopRightRadius: rule.radius+'px',
-        borderTopLeftRadius: rule.radius+'px',
-        padding: rule.padding+'px',
-        boxSizing: rule.boxSizing,
-        overflow: rule.overflow,
-      }"
-    >
-      在游戏中，你需要选出你看到的美食名称；中途允许退出游戏，但退出后只允许查看自己参与部分的答案，这会让你错失认识更多南大美食的机会哦～
-完整参与游戏，并答对全部美食，还可获得小家园周边一份哦～
-现在让我们进入游戏吧！
+    <div class="up" v-show="upflag" id="touch">
+      由此上划查看规则
+      <div class="up-img-box">
+        <img class="up-img" src="/img/上划.png" alt="">
+      </div>
     </div>
+    <transition name="el-zoom-in-bottom">
+      <div 
+      :style="{
+          height: rule.height+'%',
+          width: rule.width+'%',
+          backgroundColor: rule.backgroundColor,
+          position: rule.position,
+          bottom: rule.bottom+'%',
+          fontSize: rule.fontSize+'px',
+          color: rule.color,
+          borderTopRightRadius: rule.radius+'px',
+          borderTopLeftRadius: rule.radius+'px',
+          padding: rule.padding+'px',
+          boxSizing: rule.boxSizing,
+          overflow: rule.overflow,
+        }"
+        v-show="rule.flag"
+      >
+        在游戏中，你需要选出你看到的美食名称；中途允许退出游戏，但退出后只允许查看自己参与部分的答案，这会让你错失认识更多南大美食的机会哦～
+  完整参与游戏，并答对全部美食，还可获得小家园周边一份哦～
+  现在让我们进入游戏吧！
+        <div class="togame" id="togame">
+          此处上划进入游戏
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -40,7 +51,7 @@ export default {
   data () {
     return {
       rule: {
-        height: 20,
+        height: 60,
         width: 100,
         backgroundColor: '#FFC21C',
         bottom: 0,
@@ -52,19 +63,67 @@ export default {
         boxSizing: 'border-box',
         overflow: 'hidden',
         flag: 0,
-      }
+      },
+      startX: 0, // 鼠标开始点击的x坐标
+      startY: 0,
+      // 用于控制上划图标是否显示
+      upflag: 1,
     }
   },
   methods: {
-    slipup (){
-      if(this.rule.flag === 0){
-        this.rule.height = this.rule.height + 40
-        this.rule.flag = 1
-      } else{
-        this.rule.height = this.rule.height - 40
-        this.rule.flag = 0
+ // 给目标添加事件，处理兼容
+    addHandler (element, type, handler) {
+      if (element.addEventListener) {
+        element.addEventListener(type, handler, false)
+      } else if (element.attachEvent) {
+        element.attachEvent('on' + type, handler)
+      } else {
+        element['on' + type] = handler
       }
+    },
+// 具体的滑动处理
+//（此处只需要处理上滑事件，所以处理较简单，还可以进行封装，处理各种滑动事件）
+    handleTouchEvent (event) {
+      switch (event.type) {
+        case 'touchstart':
+          this.startX = event.touches[0].pageX
+          this.startY = event.touches[0].pageY
+          break
+        case 'touchend':
+          var spanX = event.changedTouches[0].pageX - this.startX
+          var spanY = event.changedTouches[0].pageY - this.startY
+          // console.log('spanY', spanY)
+          if (spanY < -30) { // 向上
+            this.rule.flag = 1
+            this.upflag = 0
+          }
+          if (Math.abs(spanX) > Math.abs(spanY)) {
+            // 认定为水平方向滑动
+          } else {
+            // 认定为垂直方向滑动
+          }
+          break
+        case 'touchmove':
+          // 阻止默认行为
+          // event.preventDefault()
+          break
+      }
+    },
+    gamestart () {
+      this.$router.push('/GamePage')
     }
+  },
+  mounted () {
+    // 给被滑动对象添加事件
+    let element = document.getElementById('touch')
+    this.addHandler(element, 'touchstart', this.handleTouchEvent)
+    this.addHandler(element, 'touchend', this.handleTouchEvent)
+    this.addHandler(element, 'touchmove', this.handleTouchEvent)
+    let game = document.getElementById('togame')
+    this.addHandler(game, 'touchstart', this.handleTouchEvent)
+    this.addHandler(game, 'touchend', this.handleTouchEvent)
+    this.addHandler(game, 'touchmove', this.handleTouchEvent)
+    this.addHandler(game, 'touchend', this.gamestart)
   }
 }
 </script>
@@ -85,4 +144,27 @@ export default {
       transform translate(-50%, -50%)
       color #ffffff
       font-size .25rem
+    .up
+      position absolute
+      top 100%
+      transform translate(0%, -100%)
+      width 100%
+      font-size .2rem
+      color #ffffff
+      text-align center
+      .up-img-box
+        width .8rem
+        height .8rem
+        margin auto
+        .up-img
+          width 100%
+          height 100%
+    .togame
+      width 100%
+      height .3rem
+      position absolute
+      top 90%
+      left 0
+      background-color rgba(112,112,112,0.6)
+      text-align center
 </style>

@@ -13,9 +13,7 @@ import './assets/style/border.css'
 import './assets/iconfont/iconfont.css'
 // 引入南大家园数据
 import Miracle from 'incu-webview'
-// 引入cookie
-import cookie from '@/assets/js/cookie.js'
-// 引入vue-cookies插件
+// 引入vue-cookies插件，进行cookie管理
 import VueCookies from 'vue-cookies'
 // 引入axios依赖
 import axios from 'axios'
@@ -25,7 +23,6 @@ import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
 Vue.use(VueCookies)
-Vue.prototype.$global=cookie; 
 
 const isApp = Miracle.isApp()
 console.log(isApp)

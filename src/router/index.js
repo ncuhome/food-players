@@ -24,7 +24,7 @@ Vue.use(VueRouter)
     path: '/GamePage',
     name: 'GamePage',
     component: GamePage
-  }
+  },
 ]
 
 const router = new VueRouter({

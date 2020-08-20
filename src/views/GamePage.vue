@@ -1,5 +1,6 @@
 <template>
   <div class="first_c">
+    游戏页面
     <!--游戏页面-->
     <div class="game">
       <div class="game-prin">
