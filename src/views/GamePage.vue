@@ -1,101 +1,170 @@
 <template>
   <div class="first_c">
-    游戏页面
     <!--游戏页面-->
+    <div class="head">
+      <span class="help">
+        <el-button type="warning" size="mini" round>帮助</el-button>
+      </span>
+      <span class="time-limit"></span>
+    </div>
     <div class="game">
-      <div class="game-prin">
-        <div 
-          :style="{
-            width: row.width+'rem',
-            height: row.height+'px',
-            backgroundColor: row.backgroundColor,
-            position:row.position,
-            left:'20%',
-            transform: 'translate(-50%,0)'
-          }"
-        >
+      <div class="gameprin" ref="prin">
+        <div class="nullA">
         </div>
         <img 
-          :style="{
-            width: img_picker.width + 'rem',
-            height: img_picker.height + 'rem',
-            position: img_picker.position,
-            left: '20%',
-            transform: 'translate(-50%,0)'
-          }" 
-          src="/img/pickA.png" 
-          alt=""
+          class="pawimgA" 
+          src="/img/pickA.png"
+          ref="pawA"
         >
-        <div 
-          :style="{
-            width: row.width+'rem',
-            height: row.height+'px',
-            backgroundColor: row.backgroundColor,
-            position:row.position,
-            left:'50%',
-            transform: 'translate(-50%,0)'
-          }"
-        >
+        <div class="nullB">
         </div>
         <img 
-          :style="{
-            width: img_picker.width + 'rem',
-            height: img_picker.height + 'rem',
-            position: img_picker.position,
-            left: '50%',
-            transform: 'translate(-50%,0)'
-          }" 
-          src="/img/pickB.png" 
-          alt=""
+          class="pawimgB" 
+          src="/img/pickB.png"
+          ref="pawB"
         >
-        <div 
-          :style="{
-            width: row.width+'rem',
-            height: row.height+'px',
-            backgroundColor: row.backgroundColor,
-            position:row.position,
-            left:'80%',
-            transform: 'translate(-50%,0)'
-          }"
-        >
+        <div class="nullC">
         </div>
         <img 
-          :style="{
-            width: img_picker.width + 'rem',
-            height: img_picker.height + 'rem',
-            position: img_picker.position,
-            left: '80%',
-            transform: 'translate(-50%,0)'
-          }" 
-          src="/img/pickC.png" 
-          alt=""
+          class="pawimgC" 
+          src="/img/pickC.png"
+          ref="pawC"
         >
-        <div class="game-item"></div>
+        <div class="game-item">
+          <span>
+            <img class="foodA" src="/img/test.png" alt="">
+          </span>
+          <span>
+            <img class="foodB" src="/img/test.png" alt="">
+          </span>
+          <span>
+            <img class="foodC" src="/img/test.png" alt="">
+          </span>
+        </div>
+      </div>
+      <div class="choice">
+        <span class="choice-item-box">
+          <el-button class="choice-item" @click="pick('1')">A</el-button>
+        </span>
+        <span class="choice-item-box">
+          <el-button class="choice-item" @click="pick('2')">B</el-button>
+        </span>
+        <span class="choice-item-box">
+          <el-button class="choice-item" @click="pick('3')">C</el-button>
+        </span>
+      </div>
+      <div>
+        <span></span>
+        <span></span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-
+import anime from 'animejs'
 export default {
   name: 'GamePage',
   components: {
   },
   data () {
     return {
-      row: {
-        width: .05,
-        height:0,
-        backgroundColor: '#707070',
-        position: 'absolute',
-      },
-      img_picker: {
-        width: .41,
-        height: .56,
-        position: 'absolute',
-      }
+      // 爪子的位置
+      paw_a: 0,
+      paw_b: 0,
+      paw_c: 0,
+      choice_item: 0,
     }
+  },
+  methods: {
+    pick(type) {
+      let that = this;
+      console.log(that)
+      let choice = type
+      var long = this.$refs.prin.getBoundingClientRect().height - 150; //爪子伸长的距离
+      console.log(long)
+      switch (type) {
+        case '1': {
+          anime({
+            targets:'.nullA',
+            height: long,
+            duration: 1000,
+            easing: 'easeInOutExpo',
+            direction: 'alternate',
+          })
+          anime({
+            targets:'.pawimgA',
+            translateY: long,
+            duration: 1000,
+            easing: 'easeInOutExpo',
+            direction: 'alternate',
+          })
+          anime({
+            targets:'.foodA',
+            translateY: -long,
+            delay: 1000,
+            easing: 'easeInOutExpo',
+          })
+          break
+        }
+        case '2': {
+          anime({
+            targets:'.nullB',
+            height: long,
+            duration: 1000,
+            easing: 'easeInOutExpo',
+            direction: 'alternate',
+          })
+          anime({
+            targets:'.pawimgB',
+            translateY: long,
+            duration: 1000,
+            easing: 'easeInOutExpo',
+            direction: 'alternate',
+          })
+          anime({
+            targets:'.foodB',
+            translateY: -long,
+            delay: 1000,
+            easing: 'easeInOutExpo',
+          })
+          break
+        }
+        case '3': {
+          anime({
+            targets:'.nullC',
+            height: long,
+            duration: 1000,
+            easing: 'easeInOutExpo',
+            direction: 'alternate',
+          })
+          anime({
+            targets:'.pawimgC',
+            translateY: long,
+            duration: 1000,
+            easing: 'easeInOutExpo',
+            direction: 'alternate',
+          })
+          anime({
+            targets:'.foodC',
+            translateY: -long,
+            delay: 1000,
+            easing: 'easeInOutExpo',
+          })
+          break
+        }
+        default: break
+      }
+    },
+  },
+  mounted() {
+    // 首先获取爪子的位置(这里是固定的)
+    this.paw_a = this.$refs.pawA.getBoundingClientRect().top
+    this.paw_b = this.$refs.pawB.getBoundingClientRect().top
+    this.paw_c = this.$refs.pawC.getBoundingClientRect().top
+    console.log(this.paw_a)
+    console.log(this.paw_b)
+    console.log(this.paw_c)
   }
 }
 </script>
@@ -113,7 +182,7 @@ export default {
       bottom 0%
       position absolute
       background-color rgb(109,190,198)
-      .game-prin
+      .gameprin
         width 3rem
         height 2.8rem
         background-color rgb(247,246,245)
@@ -121,4 +190,77 @@ export default {
         left 50%
         top 10%
         transform translate(-50%,0)
+        .nullA
+          width .05rem
+          height 0
+          position absolute
+          background-color #707070
+          left 20%
+          transform translate(-50%,0)
+        .nullB
+          width .05rem
+          height 0
+          position absolute
+          background-color #707070
+          left 50%
+          transform translate(-50%,0)
+        .nullC
+          width .05rem
+          height 0
+          position absolute
+          background-color #707070
+          left 80%
+          transform translate(-50%,0)
+        .gamepaw
+          width .41rem
+          height .56rem
+        .pawimgA
+          left 13%
+          position absolute
+          width .41rem
+          height .56rem
+        .pawimgB
+          left 43%
+          position absolute
+          width .41rem
+          height .56rem
+        .pawimgC
+          left 73%
+          position absolute
+          width .41rem
+          height .56rem
+        .game-item
+          width 100%
+          height 1.16rem
+          position absolute
+          bottom 0
+          .foodA
+            width .55rem
+            height 100%
+            position absolute
+            left 10.5%
+          .foodB
+            width .55rem
+            height 100%
+            position absolute
+            left 40.5%
+          .foodC
+            width .55rem
+            height 100%
+            position absolute
+            left 70.5%
+      .choice
+        width 100%
+        position absolute
+        bottom 30%
+        padding-left 14%
+        padding-right 14%
+        box-sizing border-box
+        .choice-item-box
+          width 33%
+          display inline-block
+          text-align center
+          .choice-item
+            margin auto
+            display inline-block
 </style>
