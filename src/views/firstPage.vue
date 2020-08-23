@@ -5,9 +5,17 @@
       <img class="t_two" src="/img/t2.png" alt="food players">
     </div>
     <div class="choose">
-      <el-button type="primary" round>开始游戏</el-button>
+      <el-button @click="change('1')" class="choose-item" type="warning">开始游戏</el-button>
       <br>
-      <el-button type="success" round>查看图鉴</el-button>
+      <el-button class="choose-item" type="warning">查看图鉴</el-button>
+      <br>
+      <el-button class="choose-item" type="warning">我的奖品券</el-button>
+    </div>
+    <div class="f-img">
+      <img class="b-img" src="/img/美食小家园.png" alt="">
+    </div>
+    <div class="imgtwo">
+      <img class="b-imgtwo" src="/img/背景2.png" alt="">
     </div>
   </div>
 </template>
@@ -18,6 +26,14 @@
 export default {
   name: 'firstPage',
   components: {
+  },
+  methods: {
+    change(type) {
+      switch (type) {
+        case '1':
+          this.$router.push('/Rule')
+      }
+    }
   }
 }
 </script>
@@ -29,6 +45,7 @@ export default {
     width 100%
     height 100%
     font-size .5rem
+    overflow hidden
     .title_img
       position absolute
       left 50%
@@ -41,7 +58,31 @@ export default {
         transform translate(-50%, -50%)
     .choose
       position absolute
-      top 55%
-      left 50%
+      top 80%
+      left 30%
       transform translate(-50%, -50%)
+      z-index 3
+      .choose-item
+        width 1.3rem
+        background-color #FFC21C
+    .f-img
+      width 3.2rem
+      height 4.5rem
+      position absolute
+      bottom 0%
+      left 100%
+      transform translate(-85%,0)
+      z-index 2
+      .b-img
+        width 100%
+        height 100%
+    .imgtwo
+      position absolute
+      bottom 0%
+      left 0%
+      width 2rem
+      height 4.2rem
+      .b-imgtwo
+        width 100%
+        height 100%
 </style>

@@ -3,7 +3,16 @@
     <!--游戏页面-->
     <div class="head">
       <span class="help">
-        <el-button type="warning" size="mini" round>帮助</el-button>
+        <el-button @click="showhelp = !showhelp" type="warning" size="mini" round>
+          帮助
+        </el-button>
+        <transition name="el-zoom-in-top">
+          <div v-show="showhelp" class="helpitems">
+            <div class="helpitem">美食图鉴</div>
+            <div class="helpitem">查看游戏规则</div>
+            <div class="helpitem">退出游戏</div>
+          </div>
+        </transition>
       </span>
       <span class="time-limit"></span>
     </div>
@@ -55,7 +64,9 @@
       </div>
       <div>
         <span></span>
-        <span></span>
+        <span>
+          <el-button type="warning" round></el-button>
+        </span>
       </div>
     </div>
   </div>
@@ -74,6 +85,8 @@ export default {
       paw_b: 0,
       paw_c: 0,
       choice_item: 0,
+      // 控制帮助列表是否显示
+      showhelp: false,
     }
   },
   methods: {
@@ -176,6 +189,31 @@ export default {
     width 100%
     height 100%
     font-size .5rem
+    .head
+      width 100%
+      .help
+        width 1.38rem
+        display inline-block
+        text-align center
+        position absolute
+        .helpitems
+          width 1.38rem
+          height 1.11rem
+          background-color #E6A23C
+          position absolute
+          top 100%
+          z-index 2
+          .helpitem
+            width 1.38rem
+            height .37rem
+            border-style solid
+            border-color #D4D6D7
+            border-width  1px
+            text-align center
+            font-size .15rem
+            color #ffffff
+            padding-top .1rem
+            box-sizing border-box
     .game
       width 100%
       height 6rem
