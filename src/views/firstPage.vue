@@ -7,9 +7,9 @@
     <div class="choose">
       <el-button @click="change('1')" class="choose-item" type="warning">开始游戏</el-button>
       <br>
-      <el-button class="choose-item" type="warning">查看图鉴</el-button>
+      <el-button @click="change('2')" class="choose-item" type="warning">查看图鉴</el-button>
       <br>
-      <el-button class="choose-item" type="warning">我的奖品券</el-button>
+      <el-button @click="change('3')" class="choose-item" type="warning">我的奖品券</el-button>
     </div>
     <div class="f-img">
       <img class="b-img" src="/img/美食小家园.png" alt="">
@@ -32,6 +32,12 @@ export default {
       switch (type) {
         case '1':
           this.$router.push('/Rule')
+          break
+        case '2':
+          this.$router.push('/Atlas')
+          break
+        case '3':
+          this.$router.push('/Bonus')
       }
     }
   }

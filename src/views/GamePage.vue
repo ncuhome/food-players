@@ -3,16 +3,9 @@
     <!--游戏页面-->
     <div class="head">
       <span class="help">
-        <el-button @click="showhelp = !showhelp" type="warning" size="mini" round>
+        <el-button @click="help()" type="warning" size="mini" round>
           帮助
         </el-button>
-        <transition name="el-zoom-in-top">
-          <div v-show="showhelp" class="helpitems">
-            <div class="helpitem">美食图鉴</div>
-            <div class="helpitem">查看游戏规则</div>
-            <div class="helpitem">退出游戏</div>
-          </div>
-        </transition>
       </span>
       <span class="time-limit"></span>
     </div>
@@ -85,8 +78,6 @@ export default {
       paw_b: 0,
       paw_c: 0,
       choice_item: 0,
-      // 控制帮助列表是否显示
-      showhelp: false,
     }
   },
   methods: {
@@ -169,6 +160,20 @@ export default {
         default: break
       }
     },
+    help() {
+      this.$confirm('是否离开游戏?', '提示', {
+          confirmButtonText: '狠心离开',
+          cancelButtonText: '继续游戏',
+          type: 'warning',
+        }).then(() => {
+            this.$router.push('/Rule')
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已回到游戏'
+          });          
+        });
+    }
   },
   mounted() {
     // 首先获取爪子的位置(这里是固定的)

@@ -1,9 +1,11 @@
 <template>
   <div class="first_c">
-    <!--游戏页面-->
-    <div class="title_img">
-      <img src="/img/美食玩家.png" alt="美食玩家">
-      <img class="t_two" src="/img/t2.png" alt="food players">
+    <!--结束页面-->
+    <div class="background">
+      <img style="width: 100%" src="/img/礼花.png" alt="">
+    </div>
+    <div class="tocheck">
+      <el-button type="danger" class="check">查看答案</el-button>
     </div>
   </div>
 </template>
@@ -20,19 +22,22 @@ export default {
 
 <style lang="stylus" scoped>
   .first_c
-    background: url('/img/background.png') center center no-repeat
+    background-color #FFEBB5
     background-size 100% 100%
     width 100%
     height 100%
     font-size .5rem
-    .title_img
+    .background
+      width 100%
+      height 50%
+    .tocheck
       position absolute
-      left 50%
-      top 25%
-      transform translate(-50%, -50%)
-      .t_two
-        top 60%
-        left 50%
-        position absolute
-        transform translate(-50%, -50%)
+      bottom 15%
+      width 100%
+      display inline-block
+      text-align center
+      .check
+        background-color #FFC21C
+        border none 
+        height .4rem
 </style>

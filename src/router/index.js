@@ -4,6 +4,9 @@ import firstPage from '../views/firstPage.vue'
 import Login from '../views/Login.vue'
 import Rule from '../views/Rule.vue'
 import GamePage from '../views/GamePage.vue'
+import Atlas from '../views/Atlas.vue'
+import Bonus from '../views/Bonus.vue'
+import End from '../views/End.vue'
 
 Vue.use(VueRouter)
 
@@ -24,6 +27,18 @@ Vue.use(VueRouter)
     path: '/GamePage',
     name: 'GamePage',
     component: GamePage
+  }, {
+    path: '/Atlas',
+    name: 'Atlas',
+    component: Atlas
+  }, {
+    path: '/Bonus',
+    name: 'Bonus',
+    component: Bonus
+  }, {
+    path: '/End',
+    name: 'End',
+    component: End
   },
 ]
 

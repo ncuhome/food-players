@@ -97,3 +97,13 @@ del,ins,u,s,a,a:hover{text-decoration:none;}
 html,body,#app{font-size: 100px; height: 100%;}
 textarea.el-textarea__inner {border-radius: .06rem;background-color: rgba(255,255,255,0.5);}
 input.el-input__inner{border-radius: .2rem;background-color: rgba(255, 255, 255, 0.6);}
+.el-message-box {
+  width: 3rem;
+  position: absolute;
+  top: 50%;
+  left: 64.5%;
+  transform: translate(-50%,-50%);
+}
+.el-message-box__wrapper{
+  width: 3rem;
+}
