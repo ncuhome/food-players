@@ -43,6 +43,7 @@
 
 <script>
 // @ is an alias to /src
+import axios from 'axios'
 
 export default {
   name: 'Rule',
@@ -124,6 +125,10 @@ export default {
     this.addHandler(game, 'touchend', this.handleTouchEvent)
     this.addHandler(game, 'touchmove', this.handleTouchEvent)
     this.addHandler(game, 'touchend', this.gamestart)
+    let token = 'passport' + ' ' + localStorage.getItem('token')
+    let temp = axios.get('http://47.115.56.165/user/', {headers:{'Authorization':token}})
+    console.log('用户请求结果：')
+    console.log(temp)
   }
 }
 </script>
