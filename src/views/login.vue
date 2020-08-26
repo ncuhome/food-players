@@ -53,13 +53,13 @@ export default {
     logincheck () {
       this.$refs.loginrefs.validate(async valid => {
         if (!valid) return
-        const temp = await this.$http.post('https://os.ncuos.com/api/user/token', this.loginForm)
+        let temp = await this.$http.post('https://os.ncuos.com/api/user/token', this.loginForm)
         console.log(temp)
         if (temp.data.status !== 1) return this.$message.error('登陆失败')
         localStorage.setItem('token', temp.data.token)
         let test = localStorage.getItem('token')
         console.log(test)
-        this.$router.push('/')
+        this.$router.push('/firstPage')
         return this.$message.success('登陆成功')
       })
     },

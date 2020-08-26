@@ -12,11 +12,11 @@ Vue.use(VueRouter)
 
   const routes = [
   {
-    path: '/Login',
+    path: '/',
     name: 'Login',
     component: Login
   }, {
-    path: '/',
+    path: '/firstPage',
     name: 'firstPage',
     component: firstPage
   }, {
@@ -47,9 +47,9 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if(to.path === '/Login') return next()
+  if(to.path === '/') return next()
   const tokenstr = localStorage.getItem('token')
-  if(!tokenstr) return next('/Login')
+  if(!tokenstr) return next('/')
   else next()
 })
 

@@ -183,7 +183,12 @@ export default {
     console.log(this.paw_a)
     console.log(this.paw_b)
     console.log(this.paw_c)
-  }
+    console.log('题目信息：')
+    // 获取题目
+    let token = 'passport' + ' ' + localStorage.getItem('token')
+    const temp = this.$http.get('http://47.115.56.165/user/questions', token)
+    console.log(temp)
+  },
 }
 </script>
 
