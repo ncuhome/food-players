@@ -10,6 +10,7 @@
       <span class="time-limit"></span>
     </div>
     <div class="game">
+      <img style="width: 100%" src="/img/娃娃机.png" alt="">
       <div class="gameprin" ref="prin">
         <div class="nullA">
         </div>
@@ -58,7 +59,6 @@
       <div>
         <span></span>
         <span>
-          <el-button type="warning" round></el-button>
         </span>
       </div>
     </div>
@@ -67,6 +67,8 @@
 
 <script>
 import anime from 'animejs'
+import axios from 'axios'
+
 export default {
   name: 'GamePage',
   components: {
@@ -85,7 +87,7 @@ export default {
       let that = this;
       console.log(that)
       let choice = type
-      var long = this.$refs.prin.getBoundingClientRect().height - 150; //爪子伸长的距离
+      var long = this.$refs.prin.getBoundingClientRect().height - 160; //爪子伸长的距离
       console.log(long)
       switch (type) {
         case '1': {
@@ -186,7 +188,7 @@ export default {
     console.log('题目信息：')
     // 获取题目
     let token = 'passport' + ' ' + localStorage.getItem('token')
-    const temp = this.$http.get('http://47.115.56.165/user/questions', token)
+    let temp = axios.get('http://47.115.56.165/user/questions', {headers:{'Authorization':token}})
     console.log(temp)
   },
 }
@@ -194,7 +196,7 @@ export default {
 
 <style lang="stylus" scoped>
   .first_c
-    background: url('/img/background.png') center center no-repeat
+    background-color #EA5E1F
     background-size 100% 100%
     width 100%
     height 100%
@@ -226,17 +228,16 @@ export default {
             box-sizing border-box
     .game
       width 100%
-      height 6rem
+      height 5.45rem
       bottom 0%
       position absolute
-      background-color rgb(109,190,198)
+      overflow hidden
       .gameprin
         width 3rem
-        height 2.8rem
-        background-color rgb(247,246,245)
+        height 2.5rem
         position absolute
         left 50%
-        top 10%
+        top 4%
         transform translate(-50%,0)
         .nullA
           width .05rem
@@ -300,7 +301,7 @@ export default {
       .choice
         width 100%
         position absolute
-        bottom 30%
+        bottom 35%
         padding-left 14%
         padding-right 14%
         box-sizing border-box
