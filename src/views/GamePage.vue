@@ -80,6 +80,8 @@ export default {
       paw_b: 0,
       paw_c: 0,
       choice_item: 0,
+      // 存储返回的题目
+      info: null,
     }
   },
   methods: {
@@ -188,8 +190,12 @@ export default {
     console.log('题目信息：')
     // 获取题目
     let token = 'passport' + ' ' + localStorage.getItem('token')
-    let temp = axios.get('http://47.115.56.165/user/questions', {headers:{'Authorization':token}})
-    console.log(temp)
+    async function getimg() {
+      let temp = await axios.get('http://47.115.56.165/user/questions', {headers:{'Authorization':token}})
+      console.log(temp)
+    }
+    getimg()
+    // .then(response => (this.info = response))
   },
 }
 </script>
