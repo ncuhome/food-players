@@ -75,12 +75,7 @@ export default {
   },
   data () {
     return {
-      // 爪子的位置
-      paw_a: 0,
-      paw_b: 0,
-      paw_c: 0,
-      choice_item: 0,
-      // 存储返回的题目
+      // 存储返回的题目信息
       info: null,
     }
   },
@@ -177,25 +172,45 @@ export default {
             message: '已回到游戏'
           });          
         });
+    },
+    next() {
+
+    },
+    async getimg(token) {
+      let temp = await axios.get('http://47.115.56.165/user/questions', {headers:{'Authorization':token}})
+      console.log(temp.data.data)
+      this.info = temp.data.data
+      console.log('info:',this.info)
     }
   },
   mounted() {
-    // 首先获取爪子的位置(这里是固定的)
-    this.paw_a = this.$refs.pawA.getBoundingClientRect().top
-    this.paw_b = this.$refs.pawB.getBoundingClientRect().top
-    this.paw_c = this.$refs.pawC.getBoundingClientRect().top
-    console.log(this.paw_a)
-    console.log(this.paw_b)
-    console.log(this.paw_c)
     console.log('题目信息：')
     // 获取题目
     let token = 'passport' + ' ' + localStorage.getItem('token')
-    async function getimg() {
+    this.getimg(token)
+    /*
+    async function getimg(any) {
       let temp = await axios.get('http://47.115.56.165/user/questions', {headers:{'Authorization':token}})
-      console.log(temp)
+      console.log(temp.data.data)
+      any = temp.data.data
+      console.log('info:',any)
     }
-    getimg()
-    // .then(response => (this.info = response))
+    getimg(this.info)
+    console.log("thisinfo",this.info)
+    */
+    /*
+    let test = getimg()
+    console.log('test:',test)
+    */
+    /*
+    for(let i = 1;i <= 20;i++) {
+      let pro = {
+        url: test[i].picUrl,
+        sec: test[i].selections
+      }
+      this.info.push(pro)
+    }
+    console.log('info:',this.info)*/
   },
 }
 </script>
