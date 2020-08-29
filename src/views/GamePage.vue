@@ -35,13 +35,13 @@
         >
         <div class="game-item">
           <span>
-            <img class="foodA" src="/img/test.png" alt="">
+            <img class="foodA" :src="imgUrl" alt="">
           </span>
           <span>
-            <img class="foodB" src="/img/test.png" alt="">
+            <img class="foodB" :src="imgUrl" alt="">
           </span>
           <span>
-            <img class="foodC" src="/img/test.png" alt="">
+            <img class="foodC" :src="imgUrl" alt="">
           </span>
         </div>
       </div>
@@ -56,9 +56,14 @@
           <el-button class="choice-item" @click="pick('3')">C</el-button>
         </span>
       </div>
-      <div>
-        <span></span>
-        <span>
+      <div class="problem-c" :style="{fontSize: '.16rem',color: '#fff'}">
+        <span class="pro-text">
+          <p>A:{{problem[0]}}</p>
+          <p>B:{{problem[1]}}</p>
+          <p>C:{{problem[2]}}</p>
+        </span>
+        <span class="pro-text">
+          <el-button type="round" @click="next"></el-button>
         </span>
       </div>
     </div>
@@ -76,13 +81,17 @@ export default {
   data () {
     return {
       // 存储返回的题目信息
-      info: null,
+      info: {},
+      // 用于储存/切换图片
+      imgUrl: '',
+      // 用于储存/切换题目
+      problem: [],
+      // 用于切换题目
+      flag: 0
     }
   },
   methods: {
     pick(type) {
-      let that = this;
-      console.log(that)
       let choice = type
       var long = this.$refs.prin.getBoundingClientRect().height - 160; //爪子伸长的距离
       console.log(long)
@@ -174,12 +183,16 @@ export default {
         });
     },
     next() {
-
+      this.flag = this.flag + 1
+      this.imgUrl = this.info[this.flag].picUrl
+      this.problem = this.info[this.flag].selections
     },
     async getimg(token) {
       let temp = await axios.get('http://47.115.56.165/user/questions', {headers:{'Authorization':token}})
       console.log(temp.data.data)
       this.info = temp.data.data
+      this.imgUrl = this.info[0].picUrl
+      this.problem = this.info[0].selections
       console.log('info:',this.info)
     }
   },
@@ -333,4 +346,16 @@ export default {
           .choice-item
             margin auto
             display inline-block
+      .problem-c
+        position absolute
+        bottom 0%
+        width 100%
+        height 1.6rem
+        .pro-text
+          width 50%
+          height 1.6rem
+          display inline-block
+          line-height .3rem
+          padding-left .3rem
+          box-sizing border-box
 </style>
