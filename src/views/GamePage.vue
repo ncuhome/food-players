@@ -63,7 +63,7 @@
           <p>C:{{problem[2]}}</p>
         </span>
         <span class="pro-text">
-          <el-button type="round" @click="next"></el-button>
+          <el-button @click="next" round>{{tonext}}</el-button>
         </span>
       </div>
     </div>
@@ -87,7 +87,11 @@ export default {
       // 用于储存/切换题目
       problem: [],
       // 用于切换题目
-      flag: 0
+      flag: 0,
+      // 储存答题情况，返回给后端
+      result: [],
+      // 按钮文本
+      tonext: '确定，下一题'
     }
   },
   methods: {
@@ -117,6 +121,7 @@ export default {
             delay: 1000,
             easing: 'easeInOutExpo',
           })
+          this.result[this.flag] = this.problem[0]
           break
         }
         case '2': {
@@ -140,6 +145,7 @@ export default {
             delay: 1000,
             easing: 'easeInOutExpo',
           })
+          this.result[this.flag] = this.problem[1]
           break
         }
         case '3': {
@@ -163,10 +169,12 @@ export default {
             delay: 1000,
             easing: 'easeInOutExpo',
           })
+          this.result[this.flag] = this.problem[2]
           break
         }
         default: break
       }
+      console.log(this.result)
     },
     help() {
       this.$confirm('是否离开游戏?', '提示', {
@@ -184,8 +192,14 @@ export default {
     },
     next() {
       this.flag = this.flag + 1
+      if(this.flag === 20) {
+        this.$router.push('/End')
+      }
       this.imgUrl = this.info[this.flag].picUrl
       this.problem = this.info[this.flag].selections
+      if(this.flag === 19) {
+        this.tonext = '确定，查看结果'
+      }
     },
     async getimg(token) {
       let temp = await axios.get('http://47.115.56.165/user/questions', {headers:{'Authorization':token}})
