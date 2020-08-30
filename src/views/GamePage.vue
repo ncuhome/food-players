@@ -34,14 +34,23 @@
           ref="pawC"
         >
         <div class="game-item">
-          <span>
-            <img class="foodA" :src="imgUrl" alt="">
+          <span 
+            v-for="(item,index) in imgUrl"
+            :key="index"
+          >
+            <img class="foodA" :src="item.Url" :alt="index" v-if="item.show">
           </span>
-          <span>
-            <img class="foodB" :src="imgUrl" alt="">
+          <span
+            v-for="(item,index) in imgUrl"
+            :key="index"
+          >
+            <img class="foodB" :src="item.Url" :alt="index" v-if="item.show">
           </span>
-          <span>
-            <img class="foodC" :src="imgUrl" alt="">
+          <span
+            v-for="(item,index) in imgUrl"
+            :key="index"
+          >
+            <img class="foodC" :src="item.Url" :alt="index" v-if="item.show">
           </span>
         </div>
       </div>
@@ -83,7 +92,7 @@ export default {
       // 存储返回的题目信息
       info: {},
       // 用于储存/切换图片
-      imgUrl: '',
+      imgUrl: [],
       // 用于储存/切换题目
       problem: [],
       // 用于切换题目
@@ -195,8 +204,9 @@ export default {
       if(this.flag === 20) {
         this.$router.push('/End')
       }
-      this.imgUrl = this.info[this.flag].picUrl
       this.problem = this.info[this.flag].selections
+      this.imgUrl[this.flag - 1].show = false
+      this.imgUrl[this.flag].show = true
       if(this.flag === 19) {
         this.tonext = '确定，查看结果'
       }
@@ -205,9 +215,18 @@ export default {
       let temp = await axios.get('http://47.115.56.165/user/questions', {headers:{'Authorization':token}})
       console.log(temp.data.data)
       this.info = temp.data.data
-      this.imgUrl = this.info[0].picUrl
-      this.problem = this.info[0].selections
       console.log('info:',this.info)
+      for(let i = 0;i < this.info.length;i++) {
+        let imgdata = {
+          id: i,
+          Url: this.info[i].picUrl,
+          show: false
+        }
+        this.imgUrl.push(imgdata)
+      }
+      this.imgUrl[0].show = true
+      this.problem = this.info[0].selections
+      console.log('选项：',this.problem)
     }
   },
   mounted() {
