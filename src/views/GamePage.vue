@@ -201,13 +201,13 @@ export default {
     },
     next() {
       this.flag = this.flag + 1
-      if(this.flag === 20) {
-        this.$router.push('/End')
+      if(this.flag === this.info.length) {
+        this.setrecord()
       }
       this.problem = this.info[this.flag].selections
       this.imgUrl[this.flag - 1].show = false
       this.imgUrl[this.flag].show = true
-      if(this.flag === 19) {
+      if(this.flag === this.info.length - 1) {
         this.tonext = '确定，查看结果'
       }
     },
@@ -227,6 +227,17 @@ export default {
       this.imgUrl[0].show = true
       this.problem = this.info[0].selections
       console.log('选项：',this.problem)
+    },
+    async setrecord() {
+      let token = 'passport' + ' ' + localStorage.getItem('token')
+      console.log('token:',token)
+      let record = await axios.post(
+        'http://47.115.56.165/user/answers', 
+        this.result,
+        {headers:{'Authorization':token,'Content-Type':'application/json'}})
+      localStorage.setItem('record', record.data)
+      console.log('record:',record)
+      this.$router.push('/End')
     }
   },
   mounted() {
