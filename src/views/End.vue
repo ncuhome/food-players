@@ -16,6 +16,20 @@
 export default {
   name: 'GamePage',
   components: {
+  },
+  data() {
+    return {
+      record: {},
+    }
+  },
+  methods: {
+    getrecord() {
+      this.record = localStorage.getItem('record')
+      console.log(this.record)
+    }
+  },
+  mounted() {
+    this.getrecord()
   }
 }
 </script>
