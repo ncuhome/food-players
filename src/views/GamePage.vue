@@ -235,8 +235,9 @@ export default {
         'http://47.115.56.165/user/answers', 
         this.result,
         {headers:{'Authorization':token,'Content-Type':'application/json'}})
-      localStorage.setItem('record', record.data)
-      console.log('record:',record)
+      let score = record.data.data
+      this.$store.commit('change',score)
+      console.log('record:',record.data.data)
       this.$router.push('/End')
     }
   },

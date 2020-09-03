@@ -11,7 +11,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 
 export default {
   name: 'GamePage',
@@ -24,8 +23,8 @@ export default {
   },
   methods: {
     getrecord() {
-      this.record = localStorage.getItem('record')
-      console.log(this.record)
+      let temp = this.$store.state.record
+      console.log('temp:',temp)
     }
   },
   mounted() {

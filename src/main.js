@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Vuex from 'vuex'
 import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
@@ -20,6 +21,8 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 
 //挂载依赖
+Vue.use(Vuex)
+
 Vue.use(VueAxios, axios)
 
 Vue.use(VueCookies)
