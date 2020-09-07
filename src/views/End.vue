@@ -1,16 +1,19 @@
 <template>
   <div class="first_c">
     <!--结束页面-->
-    <div class="background">
-      <img style="width: 100%" src="/img/礼花.png" alt="">
-      <img class="cup" src="/img/奖杯.png" alt="">
-      <div class="score">
-        最终得分<span :style="{color:'#F4EA2A',fontSize:'.5rem',marginLeft:'.1rem',marginRight:'.1rem'}">{{record.score}}</span>分
+    <div>
+      <div class="background">
+        <img style="width: 100%" src="/img/礼花.png" alt="">
+        <img class="cup" src="/img/奖杯.png" alt="">
+        <div class="score">
+          最终得分<span :style="{color:'#F4EA2A',fontSize:'.5rem',marginLeft:'.1rem',marginRight:'.1rem'}">{{record.score}}</span>分
+        </div>
+      </div>
+      <div class="tocheck">
+        <el-button type="danger" class="check">查看答案</el-button>
       </div>
     </div>
-    <div class="tocheck">
-      <el-button type="danger" class="check">查看答案</el-button>
-    </div>
+    <div class="anws"></div>
   </div>
 </template>
 
@@ -51,7 +54,7 @@ export default {
       height 50%
       .cup
         position absolute
-        top 50%
+        top 40%
         left 50%
         transform translate(-50%,-50%)
       .score
@@ -60,7 +63,7 @@ export default {
         color #ffffff
         font-size .3rem
         position absolute
-        top 62.5%
+        top 51.5%
         left 50%
         transform translate(-50%,-50%)
     .tocheck
