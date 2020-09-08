@@ -15,12 +15,15 @@
       </div>
     </div>
     <div class="info" v-show="showatlas">
+      <div style="margin-left:.3rem,margin-top:.3rem">
+        <span class="iconfont iconxiazai6"></span>
+      </div>
       <div class="item-img">
-        <div>
-          <p>{{atlasinfo[page].name}}</p>
+        <div style="margin-bottom:.2rem">
+          <p :style="{fontSize:'.27rem',color:'#EA5E1F'}">{{atlasinfo[page].name}}</p>
         </div>
         <img style="width:100%" src="/img/图鉴测试.jpg" :alt="page">
-        <div>
+        <div style="margin-top: .4rem">
           <p>{{atlasinfo[page].body}}</p>
         </div>
       </div>
@@ -109,5 +112,6 @@ export default {
         transform translate(-50%,-50%)
         width 3.3rem
         text-align center
-        font-size .3rem
+        font-size .18rem
+        color #743816
 </style>

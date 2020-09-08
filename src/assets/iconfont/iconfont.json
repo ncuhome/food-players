@@ -1,80 +1,10 @@
 {
-  "id": "1734817",
-  "name": "2020hackweek",
+  "id": "2054160",
+  "name": "food-players",
   "font_family": "iconfont",
   "css_prefix_text": "icon",
   "description": "",
   "glyphs": [
-    {
-      "icon_id": "6338149",
-      "name": "评论",
-      "font_class": "pinglun",
-      "unicode": "e63f",
-      "unicode_decimal": 58943
-    },
-    {
-      "icon_id": "11749359",
-      "name": "树",
-      "font_class": "shu",
-      "unicode": "e64c",
-      "unicode_decimal": 58956
-    },
-    {
-      "icon_id": "1718323",
-      "name": "更多",
-      "font_class": "gengduo",
-      "unicode": "e600",
-      "unicode_decimal": 58880
-    },
-    {
-      "icon_id": "485763",
-      "name": "收 藏",
-      "font_class": "shoucang",
-      "unicode": "e60f",
-      "unicode_decimal": 58895
-    },
-    {
-      "icon_id": "579286",
-      "name": "点赞",
-      "font_class": "dianzan",
-      "unicode": "e60c",
-      "unicode_decimal": 58892
-    },
-    {
-      "icon_id": "1377634",
-      "name": "点赞 (1)",
-      "font_class": "dianzan1",
-      "unicode": "e662",
-      "unicode_decimal": 58978
-    },
-    {
-      "icon_id": "2857611",
-      "name": "成功",
-      "font_class": "chenggong",
-      "unicode": "e658",
-      "unicode_decimal": 58968
-    },
-    {
-      "icon_id": "5270852",
-      "name": "收 藏-产品详情",
-      "font_class": "shoucang1",
-      "unicode": "e613",
-      "unicode_decimal": 58899
-    },
-    {
-      "icon_id": "7408311",
-      "name": "成功",
-      "font_class": "chenggong1",
-      "unicode": "e63c",
-      "unicode_decimal": 58940
-    },
-    {
-      "icon_id": "12099662",
-      "name": "错误，关闭",
-      "font_class": "huabanfuben",
-      "unicode": "eb7d",
-      "unicode_decimal": 60285
-    },
     {
       "icon_id": "1434676",
       "name": "长箭头",
@@ -95,6 +25,41 @@
       "font_class": "mima",
       "unicode": "e636",
       "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "485763",
+      "name": "收 藏",
+      "font_class": "shoucang",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "1718323",
+      "name": "更多",
+      "font_class": "gengduo",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "2857611",
+      "name": "成功",
+      "font_class": "chenggong",
+      "unicode": "e658",
+      "unicode_decimal": 58968
+    },
+    {
+      "icon_id": "5270852",
+      "name": "收 藏-产品详情",
+      "font_class": "shoucang1",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "720964",
+      "name": "箭头",
+      "font_class": "xiazai6",
+      "unicode": "e606",
+      "unicode_decimal": 58886
     }
   ]
 }
