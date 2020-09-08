@@ -72,12 +72,14 @@ export default {
         width 1.3rem
         background-color #FFC21C
     .f-img
-      width 3.2rem
+      width 2.8rem
       height 4.5rem
       position absolute
       bottom 0%
       left 100%
-      transform translate(-85%,0)
+      transform translate(-100%,0)
+      overflow hidden
+      box-sizing border-box
       z-index 2
       .b-img
         width 100%

@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="tocheck">
-        <el-button type="danger" class="check">查看答案</el-button>
+        <el-button type="danger" class="check" @click="toatlas">查看答案</el-button>
       </div>
     </div>
     <div class="anws"></div>
@@ -34,6 +34,9 @@ export default {
       this.record = temp
       console.log('record:',this.record)
       console.log('temp:',temp)
+    },
+    toatlas() {
+      this.$router.push('/Atlas')
     }
   },
   mounted() {

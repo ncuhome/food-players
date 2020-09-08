@@ -1,19 +1,30 @@
 <template>
   <div class="first_c">
     <!--图鉴页面-->
-    <div>
+    <div v-show="!showatlas">
       <div class="title">美食图鉴</div>
       <div class="atlas">
         <span 
           class="atlas-items"
           v-for="(item,index) in atlasinfo"
           :key="index"
+          @click="showinfo(item.id)"
         >
-          <img class="atlas-img" :src="item.picUrl" :alt="item.body">
+          <img class="atlas-img" :src="item.picUrl" :alt="index">
         </span>
       </div>
     </div>
-    <div class="info"></div>
+    <div class="info" v-show="showatlas">
+      <div class="item-img">
+        <div>
+          <p>{{atlasinfo[page].name}}</p>
+        </div>
+        <img style="width:100%" src="/img/图鉴测试.jpg" :alt="page">
+        <div>
+          <p>{{atlasinfo[page].body}}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -28,14 +39,29 @@ export default {
   data() {
     return {
       atlasinfo: [],
+      showatlas: false,
+      page: 0,
     }
   },
   methods: {
     async getimg(token) {
       let temp = await axios.get('http://47.115.56.165/user/lib', {headers:{'Authorization':token}})
       console.log('temp',temp.data)
-      this.atlasinfo = temp.data.data.answerRecord
+      let second = temp.data.data
+      for(let i = 0;i < temp.data.data.answerRecord.length;i++) {
+        let item = {
+          picUrl: second.answerRecord[i].picUrl,
+          id: i,
+          name: second.answerRecord[i].name,
+          body: second.answerRecord[i].body,
+        }
+        this.atlasinfo.push(item)
+      }
       console.log('info:',this.atlasinfo)
+    },
+    showinfo(index) {
+      this.showatlas = true
+      this.page = index
     }
   },
   mounted() {
@@ -73,4 +99,15 @@ export default {
         .atlas-img
           width .55rem
           height 100%
+    .info
+      width 100%
+      height 100%
+      .item-img
+        position absolute
+        left 50%
+        top 40%
+        transform translate(-50%,-50%)
+        width 3.3rem
+        text-align center
+        font-size .3rem
 </style>
