@@ -4,7 +4,7 @@
     <div class="tip">
       Hi 欢迎来到美食世界
       <br>
-      你是第9位玩家
+      <p v-if="count">你是第9位玩家</p>
     </div>
     <div class="up" v-show="upflag" id="touch">
       由此上划查看规则
@@ -34,7 +34,7 @@
   完整参与游戏，并答对全部美食，还可获得小家园周边一份哦～
   现在让我们进入游戏吧！
         <div class="togame" id="togame">
-          此处上划进入游戏
+          <span>此处上划进入游戏</span>
         </div>
       </div>
     </transition>
@@ -52,7 +52,7 @@ export default {
   data () {
     return {
       rule: {
-        height: 60,
+        height: 65,
         width: 100,
         backgroundColor: '#FFC21C',
         bottom: 0,
@@ -69,6 +69,8 @@ export default {
       startY: 0,
       // 用于控制上划图标是否显示
       upflag: 1,
+      // 用于控制是否提示玩家参与序号
+      count: true
     }
   },
   methods: {
@@ -112,6 +114,13 @@ export default {
     },
     gamestart () {
       this.$router.push('/GamePage')
+    },
+    async userInit(token) {
+      let temp = await axios.get('http://47.115.56.165/user/', {headers:{'Authorization':token}})
+      if(temp.data.data === null|| temp.data.data === undefined)
+        this.count = false
+      console.log('用户请求结果：')
+      console.log(temp)
     }
   },
   mounted () {
@@ -126,9 +135,7 @@ export default {
     this.addHandler(game, 'touchmove', this.handleTouchEvent)
     this.addHandler(game, 'touchend', this.gamestart)
     let token = 'passport' + ' ' + localStorage.getItem('token')
-    let temp = axios.get('http://47.115.56.165/user/', {headers:{'Authorization':token}})
-    console.log('用户请求结果：')
-    console.log(temp)
+    this.userInit(token)
   }
 }
 </script>
@@ -166,10 +173,12 @@ export default {
           height 100%
     .togame
       width 100%
-      height .3rem
+      height .5rem
       position absolute
-      top 90%
+      top 85%
       left 0
       background-color rgba(112,112,112,0.6)
       text-align center
+      box-sizing border-box
+      padding-top .15rem
 </style>
