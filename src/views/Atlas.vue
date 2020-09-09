@@ -2,6 +2,9 @@
   <div class="first_c">
     <!--图鉴页面-->
     <div v-show="!showatlas">
+      <div @click="tohome" style="position: absolute; left: .4rem;color: #ffffff">
+        <span class="iconfont iconxiazai6"></span>
+      </div>
       <div class="title">美食图鉴</div>
       <div class="atlas">
         <span 
@@ -16,7 +19,7 @@
     </div>
     <div class="info" v-show="showatlas" id="toslip">
       <div style="margin-left:.3rem,margin-top:.3rem">
-        <span style="margin-left: .4rem;color: #FFC21C" class="iconfont iconxiazai6"></span>
+        <span @click="change" style="margin-left: .4rem;color: #FFC21C" class="iconfont iconxiazai6"></span>
       </div>
       <div class="item-img">
         <div style="margin-bottom:.2rem">
@@ -134,6 +137,12 @@ export default {
           break
       }
     },
+    change() {
+      this.showatlas = !this.showatlas
+    },
+    tohome() {
+      this.$router.push('/firstPage')
+    }
   },
   mounted() {
     console.log('图鉴信息：')
