@@ -7,7 +7,10 @@
           帮助
         </el-button>
       </span>
-      <span class="time-limit"></span>
+      <span class="time-limit iconfont icondaojishi"></span>
+      <span @click="musicPause" style="width: 20%;display: inline-block;color: #F4EA2A;font-size: .25rem" class="iconfont iconyinle">
+        <audio src="/music/小手鞠.mp3" loop autoplay ref="musicPlay"></audio>
+      </span>
     </div>
     <div class="game">
       <img style="width: 100%" src="/img/娃娃机.png" alt="">
@@ -100,7 +103,9 @@ export default {
       // 储存答题情况，返回给后端
       result: [],
       // 按钮文本
-      tonext: '确定，下一题'
+      tonext: '确定，下一题',
+      // 用于确定切换音乐播放状态
+      playMusic: true
     }
   },
   methods: {
@@ -240,6 +245,16 @@ export default {
       this.$store.commit('change',score)
       console.log('record:',record.data.data)
       this.$router.push('/End')
+    },
+    musicPlay() {
+      this.$refs.musicPlay.play()
+    },
+    musicPause() {
+      this.playMusic = !this.playMusic
+      if(this.playMusic)
+        this.$refs.musicPlay.play()
+      else
+        this.$refs.musicPlay.pause()
     }
   },
   mounted() {
@@ -247,6 +262,7 @@ export default {
     // 获取题目
     let token = 'passport' + ' ' + localStorage.getItem('token')
     this.getimg(token)
+    this.musicPlay()
     /*
     async function getimg(any) {
       let temp = await axios.get('http://47.115.56.165/user/questions', {headers:{'Authorization':token}})
@@ -283,11 +299,12 @@ export default {
     font-size .5rem
     .head
       width 100%
+      display inline
+      text-align center
       .help
-        width 1.38rem
+        width 20%
         display inline-block
         text-align center
-        position absolute
         .helpitems
           width 1.38rem
           height 1.11rem
@@ -306,6 +323,11 @@ export default {
             color #ffffff
             padding-top .1rem
             box-sizing border-box
+      .time-limit
+        width 60%
+        display inline-block
+        font-size .44rem
+        color #FFEBB5
     .game
       width 100%
       height 5.45rem

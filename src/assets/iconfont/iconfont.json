@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "11699448",
+      "name": "倒计时",
+      "font_class": "daojishi",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "11819186",
+      "name": "音乐",
+      "font_class": "yinle",
+      "unicode": "e6c9",
+      "unicode_decimal": 59081
+    },
+    {
       "icon_id": "1907133",
       "name": "箭头",
       "font_class": "jiantou-copy-copy-copy",
