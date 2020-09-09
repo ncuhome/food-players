@@ -183,6 +183,7 @@ export default {
         }
         default: break
       }
+      //this.next()
       console.log(this.result)
     },
     help() {
