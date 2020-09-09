@@ -10,7 +10,8 @@
         </div>
       </div>
       <div class="tocheck">
-        <el-button type="danger" class="check" @click="toatlas">查看答案</el-button>
+        <el-button type="danger" class="check" @click="toAnswers">查看答案</el-button>
+        <el-button type="danger" class="check" @click="toHome">返回首页</el-button>
       </div>
     </div>
     <div class="anws"></div>
@@ -35,8 +36,11 @@ export default {
       console.log('record:',this.record)
       console.log('temp:',temp)
     },
-    toatlas() {
-      this.$router.push('/Atlas')
+    toAnswers() {
+      this.$router.push('/Answers')
+    },
+    toHome() {
+      this.$router.push('/firstPage')
     }
   },
   mounted() {
