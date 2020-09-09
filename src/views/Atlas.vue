@@ -20,11 +20,11 @@
       </div>
       <div class="item-img">
         <div style="margin-bottom:.2rem">
-          <p :style="{fontSize:'.27rem',color:'#EA5E1F'}">{{atlasinfo[page].name}}</p>
+          <p :style="{fontSize:'.27rem',color:'#EA5E1F'}">{{foodname}}</p>
         </div>
         <img style="width:100%" src="/img/图鉴测试.jpg" :alt="page">
         <div style="margin-top: .4rem">
-          <p>{{atlasinfo[page].body}}</p>
+          <p>{{foodinfo}}</p>
         </div>
       </div>
       <div class="slip">
@@ -50,6 +50,8 @@ export default {
       showatlas: false,
       // 用于控制详情页显示的内容
       page: 0,
+      foodname: '',
+      foodinfo: '',
       // 用于控制左右滑动事件
       startX:0,
       startY:0,
@@ -74,6 +76,8 @@ export default {
     showinfo(index) {
       this.showatlas = true
       this.page = index
+      this.foodname = this.atlasinfo[index].name
+      this.foodinfo = this.atlasinfo[index].body
       let slipdom = document.getElementById('toslip')
       console.log('dom:',slipdom)
       this.addHandler(slipdom, 'touchstart', this.handleTouchEvent)
@@ -104,7 +108,21 @@ export default {
           }
           if (Math.abs(spanX) > Math.abs(spanY)) {
             // 认定为水平方向滑动
-            this.page = this.page + 1
+            if (spanX < 0) {
+              // 向左滑动
+              this.page = this.page + 1
+              if (this.page > this.atlasinfo.length)
+                break
+              this.foodname = this.atlasinfo[this.page].name
+              this.foodinfo = this.atlasinfo[this.page].body
+            }
+            else {// 向右滑动
+              this.page = this.page - 1
+              if (this.page < 0)
+                break
+              this.foodname = this.atlasinfo[this.page].name
+              this.foodinfo = this.atlasinfo[this.page].body
+            }
             console.log(this.page)
           } else {
             // 认定为垂直方向滑动
@@ -130,6 +148,7 @@ export default {
   .first_c
     background-color #FFEBB5
     background-size 100% 100%
+    background-attachment fixed
     width 100%
     height 100%
     font-size .5rem
@@ -143,7 +162,7 @@ export default {
       box-sizing border-box
     .atlas
       width 100%
-      height 80%
+      background-color #FFEBB5
       .atlas-items
         width 50%
         display inline-block
