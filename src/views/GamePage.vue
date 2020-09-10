@@ -7,7 +7,13 @@
           帮助
         </el-button>
       </span>
-      <span class="time-limit iconfont icondaojishi"></span>
+      <span class="time-limit iconfont icondaojishi">
+        <div style="font-size: .16rem;height: 100%;">
+          还剩
+          <span style="font-size: .2rem">{{limitTime}}</span>
+          秒
+        </div>
+      </span>
       <span @click="musicPause" style="width: 20%;display: inline-block;color: #F4EA2A;font-size: .25rem" class="iconfont iconyinle">
         <audio src="/music/小手鞠.mp3" loop autoplay ref="musicPlay"></audio>
       </span>
@@ -105,7 +111,10 @@ export default {
       // 按钮文本
       tonext: '确定，下一题',
       // 用于确定切换音乐播放状态
-      playMusic: true
+      playMusic: true,
+      // 做题时间
+      limitTime: 0,
+      timer: null,
     }
   },
   methods: {
@@ -213,6 +222,7 @@ export default {
       this.problem = this.info[this.flag].selections
       this.imgUrl[this.flag - 1].show = false
       this.imgUrl[this.flag].show = true
+      this.timecount(this.flag + 1)
       if(this.flag === this.info.length - 1) {
         this.tonext = '确定，查看结果'
       }
@@ -255,6 +265,40 @@ export default {
         this.$refs.musicPlay.play()
       else
         this.$refs.musicPlay.pause()
+    },
+    timecount(index) {
+      let count = 20
+      let flag = Math.ceil(index/5)
+      switch(flag){
+        case '1':{
+          count = 20
+          break
+        }
+        case '2':{
+          count = 15
+          break
+        }
+        case '3':{
+          count = 10
+          break
+        }
+        case '4':{
+          count = 5
+          break
+        }
+        default:
+          break
+      }
+      this.limitTime = count
+      this.timer = setInterval (() => {
+        if(this.limitTime > 0 && this.limitTime <= count) {
+          this.limitTime--
+        }
+        else {
+          clearInterval(this.timer)
+          this.timer = null
+        }
+      }, 1000)
     }
   },
   mounted() {
@@ -328,6 +372,7 @@ export default {
         display inline-block
         font-size .44rem
         color #FFEBB5
+        vertical-align middle
     .game
       width 100%
       height 5.45rem

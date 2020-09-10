@@ -4,7 +4,7 @@
     <div class="tip">
       Hi 欢迎来到美食世界
       <br>
-      <p v-if="count">你是第9位玩家</p>
+      <p v-if="count">你是第{{code}}位玩家</p>
     </div>
     <div class="up" v-show="upflag" id="touch">
       由此上划查看规则
@@ -70,7 +70,9 @@ export default {
       // 用于控制上划图标是否显示
       upflag: 1,
       // 用于控制是否提示玩家参与序号
-      count: true
+      count: false,
+      // 玩家序号
+      code: 0,
     }
   },
   methods: {
@@ -119,6 +121,9 @@ export default {
       let temp = await axios.get('http://47.115.56.165/user/', {headers:{'Authorization':token}})
       if(temp.data.data === null|| temp.data.data === undefined)
         this.count = false
+      else
+        this.count = true
+      this.code = temp.data.data
       console.log('用户请求结果：')
       console.log(temp)
     }
