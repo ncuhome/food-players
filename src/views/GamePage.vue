@@ -43,35 +43,26 @@
           ref="pawC"
         >
         <div class="game-item">
-          <span 
-            v-for="(item,index) in imgUrl"
-            :key="index"
-          >
-            <img class="foodA" :src="item.Url" :alt="index" v-if="item.show">
+          <span>
+            <img class="foodA" :src="imgUrl" :alt="problem[0]">
           </span>
-          <span
-            v-for="(item,index) in imgUrl"
-            :key="index"
-          >
-            <img class="foodB" :src="item.Url" :alt="index" v-if="item.show">
+          <span>
+            <img class="foodB" :src="imgUrl" :alt="problem[1]">
           </span>
-          <span
-            v-for="(item,index) in imgUrl"
-            :key="index"
-          >
-            <img class="foodC" :src="item.Url" :alt="index" v-if="item.show">
+          <span>
+            <img class="foodC" :src="imgUrl" :alt="problem[2]">
           </span>
         </div>
       </div>
       <div class="choice">
         <span class="choice-item-box">
-          <el-button class="choice-item" @click="pick('1')">A</el-button>
+          <el-button class="choice-item" @click="pick('1')" :disabled="choiceClose">A</el-button>
         </span>
         <span class="choice-item-box">
-          <el-button class="choice-item" @click="pick('2')">B</el-button>
+          <el-button class="choice-item" @click="pick('2')" :disabled="choiceClose">B</el-button>
         </span>
         <span class="choice-item-box">
-          <el-button class="choice-item" @click="pick('3')">C</el-button>
+          <el-button class="choice-item" @click="pick('3')" :disabled="choiceClose">C</el-button>
         </span>
       </div>
       <div class="problem-c" :style="{fontSize: '.16rem',color: '#fff'}">
@@ -81,7 +72,7 @@
           <p>C:{{problem[2]}}</p>
         </span>
         <span class="pro-text">
-          <el-button @click="next" round>{{tonext}}</el-button>
+          <el-button @click="next" round :disabled="nextClose">{{tonext}}</el-button>
         </span>
       </div>
     </div>
@@ -101,11 +92,11 @@ export default {
       // 存储返回的题目信息
       info: {},
       // 用于储存/切换图片
-      imgUrl: [],
+      imgUrl: '',
       // 用于储存/切换题目
       problem: [],
       // 用于切换题目
-      flag: 0,
+      flag: 1,
       // 储存答题情况，返回给后端
       result: [],
       // 按钮文本
@@ -115,11 +106,16 @@ export default {
       // 做题时间
       limitTime: 0,
       timer: null,
+      // 用于设置按钮禁用
+      choiceClose: false,
+      nextClose: true
     }
   },
   methods: {
     pick(type) {
       let choice = type
+      this.choiceClose = true
+      this.nextClose = false
       var long = this.$refs.prin.getBoundingClientRect().height - 160; //爪子伸长的距离
       console.log(long)
       switch (type) {
@@ -215,15 +211,19 @@ export default {
         });
     },
     next() {
+      this.nextClose = true
+      this.choiceClose = false
       this.flag = this.flag + 1
-      if(this.flag === this.info.length) {
+      if(this.flag === this.info.length + 1) {
+        this.timer = null
         this.setrecord()
       }
-      this.problem = this.info[this.flag].selections
-      this.imgUrl[this.flag - 1].show = false
-      this.imgUrl[this.flag].show = true
-      this.timecount(this.flag + 1)
-      if(this.flag === this.info.length - 1) {
+      this.problem = this.info[this.flag-1].selections
+      this.imgUrl = this.info[this.flag-1].PicUrl
+      if(this.flag < this.info.length){
+        this.timecount(this.flag)
+      }
+      if(this.flag === this.info.length) {
         this.tonext = '确定，查看结果'
       }
     },
@@ -232,15 +232,7 @@ export default {
       console.log(temp.data.data)
       this.info = temp.data.data
       console.log('info:',this.info)
-      for(let i = 0;i < this.info.length;i++) {
-        let imgdata = {
-          id: i,
-          Url: this.info[i].picUrl,
-          show: false
-        }
-        this.imgUrl.push(imgdata)
-      }
-      this.imgUrl[0].show = true
+      this.imgUrl = this.info[0].PicUrl
       this.problem = this.info[0].selections
       console.log('选项：',this.problem)
     },
@@ -267,36 +259,21 @@ export default {
         this.$refs.musicPlay.pause()
     },
     timecount(index) {
-      let count = 20
-      let flag = Math.ceil(index/5)
-      switch(flag){
-        case '1':{
-          count = 20
-          break
-        }
-        case '2':{
-          count = 15
-          break
-        }
-        case '3':{
-          count = 10
-          break
-        }
-        case '4':{
-          count = 5
-          break
-        }
-        default:
-          break
-      }
-      this.limitTime = count
+      let tag = Math.ceil(index/5)
+      let count = 25 - 5 * tag
+      if(count === 0)
+      console.log('tag:',tag)
+      console.log('count:',count)
       this.timer = setInterval (() => {
         if(this.limitTime > 0 && this.limitTime <= count) {
           this.limitTime--
         }
         else {
+          this.result.push('')
+          this.timecount(this.flag)
           clearInterval(this.timer)
           this.timer = null
+          this.next()
         }
       }, 1000)
     }
@@ -307,6 +284,7 @@ export default {
     let token = 'passport' + ' ' + localStorage.getItem('token')
     this.getimg(token)
     this.musicPlay()
+    this.timecount(1)
     /*
     async function getimg(any) {
       let temp = await axios.get('http://47.115.56.165/user/questions', {headers:{'Authorization':token}})
