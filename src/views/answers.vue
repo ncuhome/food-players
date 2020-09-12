@@ -8,6 +8,7 @@
           :key="index"
         >
           <img class="atlas-img" :src="item.picUrl" :alt="index">
+          <div>{{item.name}}</div>
         </span>
       </div>
   </div>

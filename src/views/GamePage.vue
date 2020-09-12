@@ -98,7 +98,7 @@ export default {
       // 用于切换题目
       flag: 1,
       // 储存答题情况，返回给后端
-      result: [],
+      result: ['','','','','','','','','','','','','','','','','','','',''],
       // 按钮文本
       tonext: '确定，下一题',
       // 用于确定切换音乐播放状态
@@ -108,11 +108,14 @@ export default {
       timer: null,
       // 用于设置按钮禁用
       choiceClose: false,
-      nextClose: true
+      nextClose: true,
+      // 用于终止时间减少
+      breaktime: false
     }
   },
   methods: {
     pick(type) {
+      this.breaktime = true
       let choice = type
       this.choiceClose = true
       this.nextClose = false
@@ -140,7 +143,7 @@ export default {
             delay: 1000,
             easing: 'easeInOutExpo',
           })
-          this.result[this.flag] = this.problem[0]
+          this.result[this.flag-1] = this.problem[0]
           break
         }
         case '2': {
@@ -164,7 +167,7 @@ export default {
             delay: 1000,
             easing: 'easeInOutExpo',
           })
-          this.result[this.flag] = this.problem[1]
+          this.result[this.flag-1] = this.problem[1]
           break
         }
         case '3': {
@@ -188,7 +191,7 @@ export default {
             delay: 1000,
             easing: 'easeInOutExpo',
           })
-          this.result[this.flag] = this.problem[2]
+          this.result[this.flag-1] = this.problem[2]
           break
         }
         default: break
@@ -213,16 +216,15 @@ export default {
     next() {
       this.nextClose = true
       this.choiceClose = false
+      this.breaktime = false
       this.flag = this.flag + 1
       if(this.flag === this.info.length + 1) {
-        this.timer = null
         this.setrecord()
       }
       this.problem = this.info[this.flag-1].selections
       this.imgUrl = this.info[this.flag-1].PicUrl
-      if(this.flag < this.info.length){
-        this.timecount(this.flag)
-      }
+      this.timer = null
+      this.timecount(this.flag)
       if(this.flag === this.info.length) {
         this.tonext = '确定，查看结果'
       }
@@ -238,7 +240,6 @@ export default {
     },
     async setrecord() {
       let token = 'passport' + ' ' + localStorage.getItem('token')
-      console.log('token:',token)
       let record = await axios.post(
         'http://47.115.56.165/user/answers', 
         this.result,
@@ -246,6 +247,7 @@ export default {
       let score = record.data.data
       this.$store.commit('change',score)
       console.log('record:',record.data.data)
+      console.log('result:',this.result)
       this.$router.push('/End')
     },
     musicPlay() {
@@ -261,24 +263,33 @@ export default {
     timecount(index) {
       let tag = Math.ceil(index/5)
       let count = 25 - 5 * tag
+      this.limitTime = count
       if(count === 0)
       console.log('tag:',tag)
       console.log('count:',count)
       this.timer = setInterval (() => {
         if(this.limitTime > 0 && this.limitTime <= count) {
+          if(this.breaktime){
+            return
+          }
           this.limitTime--
         }
         else {
-          this.result.push('')
-          this.timecount(this.flag)
+          if(!this.breaktime) {
+            this.breaktime = !this.breaktime
+            this.result[index-1] = ''
+            console.log('插入空值',this.result)
+          }
+          this.nextClose = false
+          this.choiceClose = true
           clearInterval(this.timer)
           this.timer = null
-          this.next()
         }
       }, 1000)
     }
   },
   mounted() {
+    console.log('初始结果:',this.result)
     console.log('题目信息：')
     // 获取题目
     let token = 'passport' + ' ' + localStorage.getItem('token')
