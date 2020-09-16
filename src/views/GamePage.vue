@@ -25,44 +25,52 @@
         </div>
         <img 
           class="pawimgA" 
-          src="/img/pickA.png"
+          src="/img/paw.png"
           ref="pawA"
         >
         <div class="nullB">
         </div>
         <img 
           class="pawimgB" 
-          src="/img/pickB.png"
+          src="/img/paw.png"
           ref="pawB"
         >
         <div class="nullC">
         </div>
         <img 
           class="pawimgC" 
-          src="/img/pickC.png"
+          src="/img/paw.png"
           ref="pawC"
         >
         <div class="game-item">
-          <span>
+          <span ref="A">
             <img class="foodA" :src="imgUrl" :alt="problem[0]">
           </span>
-          <span>
+          <span ref="B">
             <img class="foodB" :src="imgUrl" :alt="problem[1]">
           </span>
-          <span>
+          <span ref="C">
             <img class="foodC" :src="imgUrl" :alt="problem[2]">
           </span>
         </div>
       </div>
       <div class="choice">
         <span class="choice-item-box">
-          <el-button class="choice-item" @click="pick('1')" :disabled="choiceClose">A</el-button>
+          <img src="/img/stick.png" class="choice-item" @click="pick('1')" v-show="choiceClose">
+          <!--点击后的拉杆-->
+          <img src="/img/stickA.png" class="choice-item" v-show="!choiceClose && !choiceCloseA">
+          <!--其他拉杆点击后的拉杆-->
+          <img src="/img/stickB.png" class="choice-item" v-show="choiceCloseA">
         </span>
         <span class="choice-item-box">
-          <el-button class="choice-item" @click="pick('2')" :disabled="choiceClose">B</el-button>
+          <img src="/img/stick.png" class="choice-item" @click="pick('2')" v-show="choiceClose">
+          <img src="/img/stickA.png" class="choice-item" v-show="!choiceClose && !choiceCloseB">
+          <img src="/img/stickB.png" class="choice-item" v-show="choiceCloseB">
         </span>
         <span class="choice-item-box">
-          <el-button class="choice-item" @click="pick('3')" :disabled="choiceClose">C</el-button>
+          <img src="/img/stick.png" class="choice-item" @click="pick('3')" v-show="choiceClose">
+          <img src="/img/stickA.png" class="choice-item" v-show="!choiceClose && !choiceCloseC">
+          <img src="/img/stickB.png" class="choice-item" v-show="choiceCloseC">
         </span>
       </div>
       <div class="problem-c" :style="{fontSize: '.16rem',color: '#fff'}">
@@ -106,23 +114,35 @@ export default {
       // 做题时间
       limitTime: 0,
       timer: null,
-      // 用于设置按钮禁用
-      choiceClose: false,
+      // 用于切换按钮状态
       nextClose: true,
+      // 用于切换拉杆状态
+      choiceClose: true,
+      // 用于设置拉杆禁用
+      choiceCloseA: false,
+      choiceCloseB: false,
+      choiceCloseC: false,
       // 用于终止时间减少
-      breaktime: false
+      breaktime: false,
+      // 用于使选项复位
+      release: 0,
+      A: {},
+      B: {},
+      C: {},
     }
   },
   methods: {
     pick(type) {
       this.breaktime = true
       let choice = type
-      this.choiceClose = true
+      this.choiceClose = false
       this.nextClose = false
-      var long = this.$refs.prin.getBoundingClientRect().height - 160; //爪子伸长的距离
-      console.log(long)
+      let long = this.$refs.prin.getBoundingClientRect().height - 160; //爪子伸长的距离
       switch (type) {
         case '1': {
+          this.release = 1
+          this.choiceCloseB = true
+          this.choiceCloseC = true
           anime({
             targets:'.nullA',
             height: long,
@@ -147,6 +167,9 @@ export default {
           break
         }
         case '2': {
+          this.release = 2
+          this.choiceCloseA = true
+          this.choiceCloseC = true
           anime({
             targets:'.nullB',
             height: long,
@@ -171,6 +194,9 @@ export default {
           break
         }
         case '3': {
+          this.release = 3
+          this.choiceCloseB = true
+          this.choiceCloseA = true
           anime({
             targets:'.nullC',
             height: long,
@@ -214,16 +240,56 @@ export default {
         });
     },
     next() {
+      let long = this.$refs.prin.getBoundingClientRect().height - 160;
+      console.log('long:',long)
+      let tag = this.release
+      console.log('tag',tag)
+      switch (tag) {
+        case '1':{
+          console.log('case1')
+          anime({
+            targets:'.foodA',
+            translateY: long,
+            delay: 0,
+            easing: 'easeInOutExpo',
+          })
+          this.release = 0
+          break
+        }
+        case '2':{
+          anime({
+            targets:'.foodB',
+            translateY: long,
+            delay: 0,
+            easing: 'easeInOutExpo',
+          })
+          this.release = 0
+          break
+        }
+        case '3':{
+          anime({
+            targets:'.foodC',
+            translateY: long,
+            delay: 0,
+            easing: 'easeInOutExpo',
+          })
+          this.release = 0
+          break
+        }
+        default: break
+      }
       this.nextClose = true
-      this.choiceClose = false
-      this.breaktime = false
+      this.choiceClose = true
+      this.choiceCloseA = false
+      this.choiceCloseB = false
+      this.choiceCloseC = false
       this.flag = this.flag + 1
+      this.breaktime = false
       if(this.flag === this.info.length + 1) {
         this.setrecord()
       }
       this.problem = this.info[this.flag-1].selections
       this.imgUrl = this.info[this.flag-1].PicUrl
-      this.timer = null
       this.timecount(this.flag)
       if(this.flag === this.info.length) {
         this.tonext = '确定，查看结果'
@@ -264,9 +330,9 @@ export default {
       let tag = Math.ceil(index/5)
       let count = 25 - 5 * tag
       this.limitTime = count
-      if(count === 0)
-      console.log('tag:',tag)
-      console.log('count:',count)
+      if(this.breaktime){
+        return
+      }
       this.timer = setInterval (() => {
         if(this.limitTime > 0 && this.limitTime <= count) {
           if(this.breaktime){
@@ -281,7 +347,10 @@ export default {
             console.log('插入空值',this.result)
           }
           this.nextClose = false
-          this.choiceClose = true
+          this.choiceClose = false
+          this.choiceCloseA = true
+          this.choiceCloseB = true
+          this.choiceCloseC = true
           clearInterval(this.timer)
           this.timer = null
         }
@@ -289,13 +358,15 @@ export default {
     }
   },
   mounted() {
-    console.log('初始结果:',this.result)
-    console.log('题目信息：')
     // 获取题目
     let token = 'passport' + ' ' + localStorage.getItem('token')
     this.getimg(token)
     this.musicPlay()
-    this.timecount(1)
+    this.timecount(this.flag)
+    this.A = this.$refs.A
+    this.B = this.$refs.B
+    this.C = this.$refs.C
+    console.log('A:',this.A)
     /*
     async function getimg(any) {
       let temp = await axios.get('http://47.115.56.165/user/questions', {headers:{'Authorization':token}})
@@ -437,7 +508,7 @@ export default {
       .choice
         width 100%
         position absolute
-        bottom 35%
+        bottom 31%
         padding-left 14%
         padding-right 14%
         box-sizing border-box
