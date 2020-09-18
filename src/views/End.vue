@@ -14,7 +14,9 @@
         <el-button type="danger" class="check" @click="toHome">返回首页</el-button>
       </div>
     </div>
-    <div class="anws"></div>
+    <div class="NCU">
+      <img src="/img/NCU.png" alt="">
+    </div>
   </div>
 </template>
 
@@ -83,4 +85,11 @@ export default {
         background-color #FFC21C
         border none 
         height .4rem
+        box-shadow 8px 3px #DE7103
+        border-radius .1rem
+    .NCU
+      position absolute
+      bottom 0
+      width 100%
+      text-align center
 </style>

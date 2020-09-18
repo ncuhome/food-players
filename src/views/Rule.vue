@@ -27,12 +27,14 @@
           padding: rule.padding+'px',
           boxSizing: rule.boxSizing,
           overflow: rule.overflow,
+          letterSpacing: '3px',
+          fontFamily: 'FZCuYuan-M03S',
+          lineHeight: '22px'
         }"
         v-show="rule.flag"
       >
-        在游戏中，你需要选出你看到的美食名称；中途允许退出游戏，但退出后只允许查看自己参与部分的答案，这会让你错失认识更多南大美食的机会哦～
-  完整参与游戏，并答对全部美食，还可获得小家园周边一份哦～
-  现在让我们进入游戏吧！
+        <p style="width: 100%;text-align: center;font-size: .38rem; margin-bottom: .3rem">游戏介绍</p>
+        我们的游戏非常简单，游戏共有三轮，在每轮游戏中你只需要选出你看到的美食的名称就好了,每题仅可选择一次。游戏允许中途退出，但我们十分希望你可以玩到最后，因为退出后就只能查看自己参与部分的答案，且最终分数只计算第一轮的分数，这样可能会让你错失认识更多南大美食的机会噢。完整参与游戏并答对全部美食后还可获得小家园周边一份，那么…现在就让我们一起进入南大的美食世界吧！
         <div class="togame" id="togame">
           <span>此处上划进入游戏</span>
         </div>
@@ -52,7 +54,7 @@ export default {
   data () {
     return {
       rule: {
-        height: 65,
+        height: 80,
         width: 100,
         backgroundColor: '#FFC21C',
         bottom: 0,
@@ -60,7 +62,7 @@ export default {
         fontSize: 18,
         color: '#ffffff',
         radius: 30,
-        padding: 30,
+        padding: 70,
         boxSizing: 'border-box',
         overflow: 'hidden',
         flag: 0,
@@ -157,7 +159,7 @@ export default {
       height 3rem
       position absolute
       left 50%
-      top 45%
+      top 35%
       transform translate(-50%, -50%)
       color #ffffff
       font-size .25rem
@@ -180,7 +182,7 @@ export default {
       width 100%
       height .5rem
       position absolute
-      top 85%
+      top 90%
       left 0
       background-color rgba(112,112,112,0.6)
       text-align center

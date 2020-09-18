@@ -43,14 +43,17 @@
           ref="pawC"
         >
         <div class="game-item">
-          <span ref="A">
-            <img class="foodA" :src="imgUrl" :alt="problem[0]">
+          <span class="foodA" ref="A">
+            <img style="width: 100%" src="/img/碟子.png" :alt="problem[0]">
+            <div style="position: absolute;top: 50%;transform: translate(0,-50%);width: .9rem;word-wrap: break-word">{{problem[0]}}</div>
           </span>
-          <span ref="B">
-            <img class="foodB" :src="imgUrl" :alt="problem[1]">
+          <span class="foodB" ref="B">
+            <img style="width: 100%" src="/img/碟子.png" :alt="problem[1]">
+            <div style="position: absolute;top: 50%;transform: translate(0,-50%);width: .9rem;word-wrap: break-word">{{problem[1]}}</div>
           </span>
-          <span ref="C">
-            <img class="foodC" :src="imgUrl" :alt="problem[2]">
+          <span class="foodC" ref="C">
+            <img style="width: 100%" src="/img/碟子.png" :alt="problem[2]">
+            <div style="position: absolute;top: 50%;transform: translate(0,-50%);width: .9rem;word-wrap: break-word">{{problem[2]}}</div>
           </span>
         </div>
       </div>
@@ -75,12 +78,10 @@
       </div>
       <div class="problem-c" :style="{fontSize: '.16rem',color: '#fff'}">
         <span class="pro-text">
-          <p>A:{{problem[0]}}</p>
-          <p>B:{{problem[1]}}</p>
-          <p>C:{{problem[2]}}</p>
+          <img style="height: 100%" :src="imgUrl" alt="">
         </span>
         <span class="pro-text">
-          <el-button @click="next" round :disabled="nextClose">{{tonext}}</el-button>
+          <el-button class="toEnd" @click="next" :disabled="nextClose">{{tonext}}</el-button>
         </span>
       </div>
     </div>
@@ -240,43 +241,32 @@ export default {
         });
     },
     next() {
-      let long = this.$refs.prin.getBoundingClientRect().height - 160;
+      let long = this.$refs.prin.getBoundingClientRect().height-250;
       console.log('long:',long)
       let tag = this.release
       console.log('tag',tag)
-      switch (tag) {
-        case '1':{
-          console.log('case1')
-          anime({
-            targets:'.foodA',
-            translateY: long,
-            delay: 0,
-            easing: 'easeInOutExpo',
-          })
-          this.release = 0
-          break
-        }
-        case '2':{
-          anime({
-            targets:'.foodB',
-            translateY: long,
-            delay: 0,
-            easing: 'easeInOutExpo',
-          })
-          this.release = 0
-          break
-        }
-        case '3':{
-          anime({
-            targets:'.foodC',
-            translateY: long,
-            delay: 0,
-            easing: 'easeInOutExpo',
-          })
-          this.release = 0
-          break
-        }
-        default: break
+      if(tag == 1){
+        anime({
+          targets:'.foodA',
+          translateY: long,
+          easing: 'easeInOutExpo',
+        })
+        this.release = 0
+      }else if(tag == 2){
+        anime({
+          targets:'.foodB',
+          translateY: long,
+          easing: 'easeInOutExpo',
+        })
+        this.release = 0
+      }
+      else if(tag == 3){
+        anime({
+          targets:'.foodC',
+          translateY: long,
+          easing: 'easeInOutExpo',
+        })
+        this.release = 0
       }
       this.nextClose = true
       this.choiceClose = true
@@ -289,7 +279,7 @@ export default {
         this.setrecord()
       }
       this.problem = this.info[this.flag-1].selections
-      this.imgUrl = this.info[this.flag-1].PicUrl
+      this.imgUrl = this.info[this.flag-1].picUrl
       this.timecount(this.flag)
       if(this.flag === this.info.length) {
         this.tonext = '确定，查看结果'
@@ -300,9 +290,10 @@ export default {
       console.log(temp.data.data)
       this.info = temp.data.data
       console.log('info:',this.info)
-      this.imgUrl = this.info[0].PicUrl
+      this.imgUrl = this.info[0].picUrl
       this.problem = this.info[0].selections
       console.log('选项：',this.problem)
+      console.log('图片：',this.imgUrl)
     },
     async setrecord() {
       let token = 'passport' + ' ' + localStorage.getItem('token')
@@ -363,10 +354,6 @@ export default {
     this.getimg(token)
     this.musicPlay()
     this.timecount(this.flag)
-    this.A = this.$refs.A
-    this.B = this.$refs.B
-    this.C = this.$refs.C
-    console.log('A:',this.A)
     /*
     async function getimg(any) {
       let temp = await axios.get('http://47.115.56.165/user/questions', {headers:{'Authorization':token}})
@@ -450,22 +437,22 @@ export default {
           width .05rem
           height 0
           position absolute
-          background-color #707070
-          left 20%
+          background-color #6DBEC6
+          left 19.8%
           transform translate(-50%,0)
         .nullB
           width .05rem
           height 0
           position absolute
-          background-color #707070
-          left 50%
+          background-color #6DBEC6
+          left 49.8%
           transform translate(-50%,0)
         .nullC
           width .05rem
           height 0
           position absolute
-          background-color #707070
-          left 80%
+          background-color #6DBEC6
+          left 79.8%
           transform translate(-50%,0)
         .gamepaw
           width .41rem
@@ -487,28 +474,32 @@ export default {
           height .56rem
         .game-item
           width 100%
-          height 1.16rem
+          height .9rem
           position absolute
-          bottom 0
+          bottom 2%
+          display inline
+          text-align center
+          font-size .15rem
+          color #ffffff
           .foodA
-            width .55rem
+            width 30%
             height 100%
-            position absolute
-            left 10.5%
+            display inline-block
+            overflow hidden
           .foodB
-            width .55rem
+            width 30%
             height 100%
-            position absolute
-            left 40.5%
+            display inline-block
+            overflow hidden
           .foodC
-            width .55rem
+            width 30%
             height 100%
-            position absolute
-            left 70.5%
+            display inline-block
+            overflow hidden
       .choice
         width 100%
         position absolute
-        bottom 31%
+        bottom 35%
         padding-left 14%
         padding-right 14%
         box-sizing border-box
@@ -524,11 +515,23 @@ export default {
         bottom 0%
         width 100%
         height 1.6rem
+        text-align center
         .pro-text
-          width 50%
+          width 1.6rem
           height 1.6rem
           display inline-block
           line-height .3rem
-          padding-left .3rem
           box-sizing border-box
+          text-align center
+          vertical-align top
+          .toEnd
+            height .76rem
+            width 1.25rem
+            background-color #FFC21C
+            color #ffffff
+            font-size .15rem
+            border-radius .15rem
+            border-style none
+            box-shadow 0px 6px #DE7103
+            margin-top .6rem
 </style>

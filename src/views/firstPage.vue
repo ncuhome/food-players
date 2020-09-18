@@ -71,6 +71,7 @@ export default {
       .choose-item
         width 1.3rem
         background-color #FFC21C
+        box-shadow 8px 5px rgba(222,113,3,0.7)
     .f-img
       width 2.8rem
       height 4.5rem
