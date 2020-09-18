@@ -78,7 +78,7 @@
       </div>
       <div class="problem-c" :style="{fontSize: '.16rem',color: '#fff'}">
         <span class="pro-text">
-          <img style="height: 100%" :src="imgUrl" alt="">
+          <img style="height: 100%;width: 100%;" :src="imgUrl" alt="">
         </span>
         <span class="pro-text">
           <el-button class="toEnd" @click="next" :disabled="nextClose">{{tonext}}</el-button>
