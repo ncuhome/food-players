@@ -1,15 +1,45 @@
 <template>
   <div class="first_c">
     <!--奖励券页面-->
+    <div>
+      <span 
+        style="position: absolute;left: 7%;top: 5%;color: #ffffff" 
+        class="iconfont iconxiazai6"
+        @click="tohome"
+      ></span>
+    </div>
+    <div>
+      <img class="bonusPic" src="/img/奖券未领.png" alt="" v-show="untake">
+      <img src="/img/奖券已领取.png" alt="" v-show="!untake">
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
+import axios from 'axios'
 
 export default {
   name: 'Bonus',
   components: {
+  },
+  data() {
+    return {
+      untake: true,
+    }
+  },
+  methods: {
+    async ifTake(token) {
+      let temp = await axios.get('http://47.115.56.165/user/lib', {headers:{'Authorization':token}})
+      console.log(temp.data.data)
+      this.untake = temp.data.data.obtained
+    },
+    tohome() {
+      this.$router.push('/firstPage')
+    }
+  },
+  mounted() {
+    let token = 'passport' + ' ' + localStorage.getItem('token')
+    this.ifTake(token)
   }
 }
 </script>
@@ -21,4 +51,11 @@ export default {
     width 100%
     height 100%
     font-size .5rem
+    .bonusPic
+      height 80%
+      width 80%
+      position absolute
+      top 55%
+      left 50%
+      transform translate(-50%,-50%)
 </style>

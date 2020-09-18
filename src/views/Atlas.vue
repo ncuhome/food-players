@@ -25,7 +25,7 @@
         <div style="margin-bottom:.2rem">
           <p :style="{fontSize:'.27rem',color:'#EA5E1F'}">{{foodname}}</p>
         </div>
-        <img style="width:100%" src="/img/图鉴测试.jpg" :alt="page">
+        <img style="width:100%" :src="foodpic" :alt="page">
         <div style="margin-top: .4rem">
           <p>{{foodinfo}}</p>
         </div>
@@ -55,6 +55,7 @@ export default {
       page: 0,
       foodname: '',
       foodinfo: '',
+      foodpic: '',
       // 用于控制左右滑动事件
       startX:0,
       startY:0,
@@ -81,6 +82,7 @@ export default {
       this.page = index
       this.foodname = this.atlasinfo[index].name
       this.foodinfo = this.atlasinfo[index].body
+      this.foodpic = this.atlasinfo[index].picUrl
       let slipdom = document.getElementById('toslip')
       console.log('dom:',slipdom)
       this.addHandler(slipdom, 'touchstart', this.handleTouchEvent)
@@ -118,6 +120,7 @@ export default {
                 break
               this.foodname = this.atlasinfo[this.page].name
               this.foodinfo = this.atlasinfo[this.page].body
+              this.foodpic = this.atlasinfo[this.page].picUrl
             }
             else {// 向右滑动
               this.page = this.page - 1
@@ -125,6 +128,7 @@ export default {
                 break
               this.foodname = this.atlasinfo[this.page].name
               this.foodinfo = this.atlasinfo[this.page].body
+              this.foodpic = this.atlasinfo[this.page].picUrl
             }
             console.log(this.page)
           } else {

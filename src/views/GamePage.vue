@@ -4,7 +4,7 @@
     <div class="head">
       <span class="help">
         <el-button @click="help()" type="warning" size="mini" round>
-          帮助
+          离开
         </el-button>
       </span>
       <span class="time-limit iconfont icondaojishi">
@@ -127,9 +127,6 @@ export default {
       breaktime: false,
       // 用于使选项复位
       release: 0,
-      A: {},
-      B: {},
-      C: {},
     }
   },
   methods: {
@@ -319,7 +316,7 @@ export default {
     },
     timecount(index) {
       let tag = Math.ceil(index/5)
-      let count = 25 - 5 * tag
+      let count = 30 - 5 * tag
       this.limitTime = count
       if(this.breaktime){
         return
