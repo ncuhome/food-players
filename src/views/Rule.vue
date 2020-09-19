@@ -1,6 +1,13 @@
 <template>
   <div class="first_c">
     <!--规则页面-->
+    <div>
+      <span 
+        style="position: absolute;left: 7%;top: 5%;color: #ffffff" 
+        class="iconfont iconxiazai6"
+        @click="tohome"
+      ></span>
+    </div>
     <div class="tip">
       Hi 欢迎来到美食世界
       <br>
@@ -128,6 +135,9 @@ export default {
       this.code = temp.data.data
       console.log('用户请求结果：')
       console.log(temp)
+    },
+    tohome() {
+      this.$router.push('/firstPage')
     }
   },
   mounted () {

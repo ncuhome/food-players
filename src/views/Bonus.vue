@@ -24,7 +24,10 @@ export default {
   },
   data() {
     return {
+      ifplay: false,
       untake: true,
+      remian: true,
+      message: '',
     }
   },
   methods: {
@@ -35,11 +38,20 @@ export default {
     },
     tohome() {
       this.$router.push('/firstPage')
+    },
+    async getremain() {
+      let rem = await axios.get('http://47.115.56.165/remaining')
+      console.log(rem)
+      if(rem.data.data.data === false){
+        this.message = '抱歉，奖品已经被领完了哦'
+      }
     }
   },
   mounted() {
     let token = 'passport' + ' ' + localStorage.getItem('token')
     this.ifTake(token)
+    this.getremain()
+    this.ifplay = this.$store.state.hadplay
   }
 }
 </script>

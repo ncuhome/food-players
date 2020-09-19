@@ -300,6 +300,10 @@ export default {
         {headers:{'Authorization':token,'Content-Type':'application/json'}})
       let score = record.data.data
       this.$store.commit('change',score)
+      if(score.score >= 60) {
+        let played = true
+        this.$store.commit('recordpla',played)
+      }
       console.log('record:',record.data.data)
       console.log('result:',this.result)
       this.$router.push('/End')
