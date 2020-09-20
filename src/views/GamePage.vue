@@ -19,7 +19,7 @@
       </span>
     </div>
     <div class="game">
-      <img style="width: 100%" src="/img/娃娃机.png" alt="">
+      <div id = "content"></div>
       <div class="gameprin" ref="prin">
         <div class="nullA">
         </div>
@@ -45,15 +45,40 @@
         <div class="game-item">
           <span class="foodA" ref="A">
             <img style="width: 100%" src="/img/碟子.png" :alt="problem[0]">
-            <div style="position: absolute;top: 50%;transform: translate(0,-50%);width: .9rem;word-wrap: break-word">{{problem[0]}}</div>
+            <div 
+              style="position: absolute;
+                top: 50%;
+                transform: translate(0,-50%);
+                width: .9rem;
+                word-wrap: break-word;
+                box-sizing: border-box;
+                padding: 10px"
+            >{{problem[0]}}</div>
           </span>
           <span class="foodB" ref="B">
             <img style="width: 100%" src="/img/碟子.png" :alt="problem[1]">
-            <div style="position: absolute;top: 50%;transform: translate(0,-50%);width: .9rem;word-wrap: break-word">{{problem[1]}}</div>
+            <div 
+              style="position: absolute;
+                top: 50%;
+                transform: translate(0,-50%);
+                width: .9rem;
+                word-wrap: break-word;
+                box-sizing: border-box;
+                padding: 10px;
+                color: #EA5E1F"
+            >{{problem[1]}}</div>
           </span>
           <span class="foodC" ref="C">
             <img style="width: 100%" src="/img/碟子.png" :alt="problem[2]">
-            <div style="position: absolute;top: 50%;transform: translate(0,-50%);width: .9rem;word-wrap: break-word">{{problem[2]}}</div>
+            <div 
+              style="position: absolute;
+                top: 50%;
+                transform: translate(0,-50%);
+                width: .9rem;
+                word-wrap: break-word;
+                box-sizing: border-box;
+                padding: 10px"
+            >{{problem[2]}}</div>
           </span>
         </div>
       </div>
@@ -78,7 +103,7 @@
       </div>
       <div class="problem-c" :style="{fontSize: '.16rem',color: '#fff'}">
         <span class="pro-text">
-          <img style="height: 100%;width: 100%;" :src="imgUrl" alt="">
+          <img style="max-height: 100%;max-width: 100%;" :src="imgUrl" alt="">
         </span>
         <span class="pro-text">
           <el-button class="toEnd" @click="next" :disabled="nextClose">{{tonext}}</el-button>
@@ -135,7 +160,7 @@ export default {
       let choice = type
       this.choiceClose = false
       this.nextClose = false
-      let long = this.$refs.prin.getBoundingClientRect().height - 160; //爪子伸长的距离
+      let long = this.$refs.prin.getBoundingClientRect().height - 140; //爪子伸长的距离
       switch (type) {
         case '1': {
           this.release = 1
@@ -273,6 +298,7 @@ export default {
       this.flag = this.flag + 1
       this.breaktime = false
       if(this.flag === this.info.length + 1) {
+        this.breaktime = true
         this.setrecord()
       }
       this.problem = this.info[this.flag-1].selections
@@ -422,17 +448,19 @@ export default {
         color #FFEBB5
         vertical-align middle
     .game
+      background: url('/img/娃娃机.png') center center no-repeat
+      background-size 100% 100%
       width 100%
       height 5.45rem
       bottom 0%
       position absolute
-      overflow hidden
+      clear both
       .gameprin
-        width 3rem
-        height 2.5rem
+        width 75%
+        height 45.5%
         position absolute
         left 50%
-        top 4%
+        top 3.3%
         transform translate(-50%,0)
         .nullA
           width .05rem
@@ -480,7 +508,7 @@ export default {
           bottom 2%
           display inline
           text-align center
-          font-size .15rem
+          font-size .18rem
           color #ffffff
           .foodA
             width 30%
