@@ -49,10 +49,12 @@
               style="position: absolute;
                 top: 50%;
                 transform: translate(0,-50%);
-                width: .9rem;
+                width: 30%;
                 word-wrap: break-word;
                 box-sizing: border-box;
-                padding: 10px"
+                padding: 10px;
+                display: block;
+                margin: 0 auto"
             >{{problem[0]}}</div>
           </span>
           <span class="foodB" ref="B">
@@ -61,7 +63,7 @@
               style="position: absolute;
                 top: 50%;
                 transform: translate(0,-50%);
-                width: .9rem;
+                width: 30%;
                 word-wrap: break-word;
                 box-sizing: border-box;
                 padding: 10px;
@@ -74,7 +76,7 @@
               style="position: absolute;
                 top: 50%;
                 transform: translate(0,-50%);
-                width: .9rem;
+                width: 30%;
                 word-wrap: break-word;
                 box-sizing: border-box;
                 padding: 10px"
@@ -102,8 +104,8 @@
         </span>
       </div>
       <div class="problem-c" :style="{fontSize: '.16rem',color: '#fff'}">
-        <span class="pro-text">
-          <img style="max-height: 100%;max-width: 100%;" :src="imgUrl" alt="">
+        <span class="pro-text" style="vertical-align: middle">
+          <img style="max-height: 100%;max-width: 100%;display: inline-block" :src="imgUrl" alt="">
         </span>
         <span class="pro-text">
           <el-button class="toEnd" @click="next" :disabled="nextClose">{{tonext}}</el-button>
@@ -411,7 +413,7 @@ export default {
 <style lang="stylus" scoped>
   .first_c
     background-color #EA5E1F
-    background-size 100% 100%
+    background-size cover
     width 100%
     height 100%
     font-size .5rem
@@ -503,9 +505,9 @@ export default {
           height .56rem
         .game-item
           width 100%
-          height .9rem
+          height 40%
           position absolute
-          bottom 2%
+          bottom 3%
           display inline
           text-align center
           font-size .18rem
@@ -515,16 +517,19 @@ export default {
             height 100%
             display inline-block
             overflow hidden
+            text-align center
           .foodB
             width 30%
             height 100%
             display inline-block
             overflow hidden
+            text-align center
           .foodC
             width 30%
             height 100%
             display inline-block
             overflow hidden
+            text-align center
       .choice
         width 100%
         position absolute
@@ -543,24 +548,24 @@ export default {
         position absolute
         bottom 0%
         width 100%
-        height 1.6rem
+        height 35%
         text-align center
+        display table
         .pro-text
-          width 1.6rem
-          height 1.6rem
-          display inline-block
+          width 40%
+          height 100%
+          display table-cell
           line-height .3rem
           box-sizing border-box
           text-align center
           vertical-align top
           .toEnd
-            height .76rem
-            width 1.25rem
+            height 40%
             background-color #FFC21C
             color #ffffff
             font-size .15rem
             border-radius .15rem
             border-style none
             box-shadow 0px 6px #DE7103
-            margin-top .6rem
+            margin-top 30%
 </style>
