@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import firstPage from '../views/firstPage.vue'
-import Login from '@/views/Login.vue'
+import Login from '@/views/login.vue'
 import Rule from '../views/Rule.vue'
 import GamePage from '../views/GamePage.vue'
 import Atlas from '../views/Atlas.vue'
 import Bonus from '../views/Bonus.vue'
 import End from '../views/End.vue'
-import Answers from '@/views/Answers.vue'
+import Answers from '@/views/answers.vue'
 
 Vue.use(VueRouter)
 
