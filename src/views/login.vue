@@ -15,7 +15,15 @@
           <el-input prefix-icon="iconfont iconmima" v-model="loginForm.password" placeholder="请输入密码" type="password"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button class="iconfont iconchangjiantou" type="primary" round @click="logincheck"></el-button>
+          <el-button 
+            class="iconfont iconchangjiantou" 
+            type="primary" 
+            round 
+            @click="logincheck"
+            v-loading.fullscreen.lock="Loading"
+            element-loading-spinner="el-icon-loading"
+            element-loading-text="正在进入美食世界"
+          ></el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -44,13 +52,13 @@ export default {
           { min: 6, max: 15, message: '长度在 6 到 15 个字符', trigger: 'blur' }
         ]
       },
-      login_c: {
-          
-      }
+      Loading: false,
     }
   },
   methods: {
     logincheck () {
+      if((this.loginForm.username != '') && (this.loginForm.password != ''))
+        this.Loading = true
       this.$refs.loginrefs.validate(async valid => {
         if (!valid) return
         let temp = await this.$http.post('https://os.ncuos.com/api/user/token', this.loginForm)

@@ -21,27 +21,33 @@
     <div class="game">
       <div id = "content"></div>
       <div class="gameprin" ref="prin">
-        <div class="nullA">
+        <div class="paw-content">
+          <div class="nullA">
+          </div>
+          <img 
+            class="pawimgA" 
+            src="/img/paw.png"
+            ref="pawA"
+          >
         </div>
-        <img 
-          class="pawimgA" 
-          src="/img/paw.png"
-          ref="pawA"
-        >
-        <div class="nullB">
+        <div class="paw-content">
+          <div class="nullB">
+          </div>
+          <img 
+            class="pawimgB" 
+            src="/img/paw.png"
+            ref="pawB"
+          >
         </div>
-        <img 
-          class="pawimgB" 
-          src="/img/paw.png"
-          ref="pawB"
+        <div class="paw-content">
+          <div class="nullC">
+          </div>
+          <img 
+            class="pawimgC" 
+            src="/img/paw.png"
+            ref="pawC"
         >
-        <div class="nullC">
         </div>
-        <img 
-          class="pawimgC" 
-          src="/img/paw.png"
-          ref="pawC"
-        >
         <div class="game-item">
           <span class="foodA" ref="A">
             <img style="width: 100%" src="/img/碟子.png" :alt="problem[0]">
@@ -162,7 +168,7 @@ export default {
       let choice = type
       this.choiceClose = false
       this.nextClose = false
-      let long = this.$refs.prin.getBoundingClientRect().height - 140; //爪子伸长的距离
+      let long = this.$refs.prin.getBoundingClientRect().height - 145 //爪子伸长的距离
       switch (type) {
         case '1': {
           this.release = 1
@@ -464,51 +470,50 @@ export default {
         left 50%
         top 3.3%
         transform translate(-50%,0)
-        .nullA
-          width .05rem
-          height 0
-          position absolute
-          background-color #6DBEC6
-          left 19.8%
-          transform translate(-50%,0)
-        .nullB
-          width .05rem
-          height 0
-          position absolute
-          background-color #6DBEC6
-          left 49.8%
-          transform translate(-50%,0)
-        .nullC
-          width .05rem
-          height 0
-          position absolute
-          background-color #6DBEC6
-          left 79.8%
-          transform translate(-50%,0)
-        .gamepaw
-          width .41rem
+        .paw-content
+          width 33.3%
           height .56rem
-        .pawimgA
-          left 13%
-          position absolute
-          width .41rem
-          height .56rem
-        .pawimgB
-          left 43%
-          position absolute
-          width .41rem
-          height .56rem
-        .pawimgC
-          left 73%
-          position absolute
-          width .41rem
-          height .56rem
+          display inline-block
+          position relative
+          text-align center
+          .nullA
+            width .05rem
+            height 0
+            position absolute
+            background-color #6DBEC6
+            left 50%
+            transform translate(-50%,0)
+          .nullB
+            width .05rem
+            height 0
+            position absolute
+            background-color #6DBEC6
+            left 50%
+            transform translate(-50%,0)
+          .nullC
+            width .05rem
+            height 0
+            position absolute
+            background-color #6DBEC6
+            left 50%
+            transform translate(-50%,0)
+          .gamepaw
+            width .41rem
+            height .56rem
+          .pawimgA
+            width .41rem
+            height .56rem
+          .pawimgB
+            width .41rem
+            height .56rem
+          .pawimgC
+            width .41rem
+            height .56rem
         .game-item
           width 100%
           height 40%
           position absolute
           bottom 3%
-          display inline
           text-align center
           font-size .18rem
           color #ffffff
