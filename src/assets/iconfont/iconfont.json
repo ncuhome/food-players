@@ -6,11 +6,11 @@
   "description": "",
   "glyphs": [
     {
-      "icon_id": "10410732",
-      "name": "加载",
-      "font_class": "jiazai",
-      "unicode": "e67e",
-      "unicode_decimal": 59006
+      "icon_id": "493240",
+      "name": "加载动画",
+      "font_class": "jiazaidonghua",
+      "unicode": "e694",
+      "unicode_decimal": 59028
     },
     {
       "icon_id": "11699448",

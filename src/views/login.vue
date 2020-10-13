@@ -1,11 +1,11 @@
 <template>
   <div class="login_c">
     <!--仅用于管理员登录-->
-    <div class="title_img">
+    <div class="title_img" v-show="!Loading">
       <img src="/img/美食玩家.png" alt="美食玩家">
       <img class="t_two" src="/img/t2.png" alt="food players">
     </div>
-    <div class="login_box">
+    <div class="login_box" v-show="!Loading">
       <!--登录表单区域-->
       <el-form :model="loginForm" :rules="loginRules" ref="loginrefs" label-width="0px">
         <el-form-item prop="username">
@@ -20,13 +20,35 @@
             type="primary" 
             round 
             @click="logincheck"
-            v-loading.fullscreen.lock="Loading"
-            element-loading-spinner="el-icon-loading"
-            element-loading-text="正在进入美食世界"
           ></el-button>
         </el-form-item>
       </el-form>
     </div>
+    <div style="
+      width: 100%;
+      height: 100px;
+      position: absolute;
+      top: 35%;
+      text-align: center;
+      -webkit-animation: rotate 2.0s infinite linear;
+      animation: rotate 2.0s infinite linear;
+      " 
+      v-show="Loading"
+    >
+      <div class="dot1"></div>
+      <div class="dot2"></div>
+    </div>
+    <div 
+      v-show="Loading" 
+      style="
+        width: 100%;
+        height: .2rem;
+        color: #FFC21C;
+        font-size: .15rem;
+        text-align: center;
+        position: absolute;
+        top: 55%"
+    >正在进入美食世界</div>
   </div>
 </template>
 

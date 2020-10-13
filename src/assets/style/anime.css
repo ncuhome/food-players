@@ -1,0 +1,56 @@
+
+/*偷懒，加载动画*/
+.loader{
+    margin: auto;
+    border:16px solid #f3f3f3;
+    border-color:#FFC21C #F8B706 #EA5E1F #DF4A25;
+    border-radius: 50%;
+    width:60px;
+    height:60px;
+    animation:load 2s linear infinite;
+  }@keyframes load{
+    0%{
+        transform:rotate(0deg);
+    }
+    100%{
+        transform:rotate(360deg);
+    }
+  }
+.dot1, .dot2 {
+  margin: auto;
+  width: 60px;
+  height: 60px;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  border-radius: 100%;
+      
+  -webkit-animation: bounce 2.0s infinite ease-in-out;
+  animation: bounce 2.0s infinite ease-in-out;
+}
+.dot1 {background-color: #FFC21C;}
+.dot2 {
+  top: auto;
+  bottom: 0px;
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+  background-color: #F8B706;
+}
+
+@-webkit-keyframes rotate { 100% { -webkit-transform: rotate(360deg) }}
+@keyframes rotate { 100% { transform: rotate(360deg); -webkit-transform: rotate(360deg) }}
+
+@-webkit-keyframes bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% {
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}

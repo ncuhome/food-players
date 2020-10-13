@@ -10,6 +10,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 // 引入外部样式,消除浏览器默认样式
 import './assets/style/reset.css'
 import './assets/style/border.css'
+import './assets/style/anime.css'
 // 引入图标样式
 import './assets/iconfont/iconfont.css'
 // 引入南大家园数据
