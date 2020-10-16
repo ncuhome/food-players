@@ -266,7 +266,8 @@ export default {
         }).catch(() => {
           this.$message({
             type: 'info',
-            message: '已回到游戏'
+            message: '已回到游戏',
+            duration: 0
           });          
         });
     },

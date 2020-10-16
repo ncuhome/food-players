@@ -107,3 +107,10 @@ input.el-input__inner{border-radius: .2rem;background-color: rgba(255, 255, 255,
 .el-message-box__wrapper{
   width: 3rem;
 }
+.el-message {min-width: 80px;}
+.el-message--success {
+  font-size: .2rem;
+}
+.el-message--info {
+  font-size: .2rem;
+}
