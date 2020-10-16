@@ -479,21 +479,21 @@ export default {
           text-align center
           .nullA
             width .05rem
-            height 0
+            height 1px
             position absolute
             background-color #6DBEC6
             left 50%
             transform translate(-50%,0)
           .nullB
             width .05rem
-            height 0
+            height 1px
             position absolute
             background-color #6DBEC6
             left 50%
             transform translate(-50%,0)
           .nullC
             width .05rem
-            height 0
+            height 1px
             position absolute
             background-color #6DBEC6
             left 50%
