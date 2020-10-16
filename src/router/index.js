@@ -51,11 +51,33 @@ const router = new VueRouter({
   routes
 })
 
+const getAppData = () => {
+  return new Promise((resolve, reject) => {
+    if (Miracle.isApp()) {
+      Miracle.onAppReady(() => {
+        resolve(Miracle.getData())
+      })
+    } else {
+      reject(new Error('非app环境'))
+    }
+  })
+}
+
+function getDataAndSet() {
+  getAppData().then((res) => {
+    let token = res.user.token;
+    localStorage.setItem('token', token);
+  })
+}
+
 router.beforeEach((to, from, next) => {
+  getDataAndSet()
   if(to.path === '/') return next()
   const tokenstr = localStorage.getItem('token')
-  if(!tokenstr) return next('/')
-  else next()
+  if(!tokenstr) 
+    return next('/')
+  else 
+    return next('/firstPage')
 })
 
 export default router
