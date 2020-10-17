@@ -8,6 +8,7 @@ import Atlas from '../views/Atlas.vue'
 import Bonus from '../views/Bonus.vue'
 import End from '../views/End.vue'
 import Answers from '@/views/answers.vue'
+import Miracle from 'incu-webview'
 
 Vue.use(VueRouter)
 
@@ -60,13 +61,16 @@ const getAppData = () => {
     } else {
       reject(new Error('非app环境'))
     }
-  })
+  }).catch((e) => {})
 }
 
 function getDataAndSet() {
   getAppData().then((res) => {
-    let token = res.user.token;
-    localStorage.setItem('token', token);
+    if (Miracle.isApp()){
+      let token = res.user.token;
+      console.log('token:',token)
+      localStorage.setItem('token', token)
+    }
   })
 }
 
@@ -77,7 +81,7 @@ router.beforeEach((to, from, next) => {
   if(!tokenstr) 
     return next('/')
   else 
-    return next('/firstPage')
+    return next()
 })
 
 export default router
