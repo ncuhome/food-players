@@ -76,7 +76,8 @@ function getDataAndSet() {
 
 router.beforeEach((to, from, next) => {
   getDataAndSet()
-  if(to.path === '/') return next()
+  if(to.path === '/') 
+    return next()
   const tokenstr = localStorage.getItem('token')
   if(!tokenstr) 
     return next('/')
