@@ -127,7 +127,7 @@ export default {
       this.$router.push('/GamePage')
     },
     async userInit(token) {
-      let temp = await axios.get('http://47.115.56.165/user/', {headers:{'Authorization':token}})
+      let temp = await axios.get('https://foodplayerbe.ncuos.com/user/', {headers:{'Authorization':token}})
       if(temp.data.data === null|| temp.data.data === undefined)
         this.count = false
       else

@@ -2,7 +2,6 @@
   <div class="first_c">
     <div class="title_img">
       <img src="/img/美食玩家.png" alt="美食玩家">
-      <img class="t_two" src="/img/t2.png" alt="food players">
     </div>
     <div class="choose">
       <el-button @click="change('1')" class="choose-item" type="warning">开始游戏</el-button>
@@ -55,7 +54,7 @@ export default {
     .title_img
       position absolute
       left 50%
-      top 25%
+      top 20%
       transform translate(-50%, -50%)
       .t_two
         top 60%
@@ -65,8 +64,8 @@ export default {
     .choose
       position absolute
       top 80%
-      left 30%
-      transform translate(-50%, -50%)
+      left 100%
+      transform translate(-130%, -50%)
       z-index 3
       .choose-item
         width 1.3rem
@@ -77,8 +76,8 @@ export default {
       height 4.5rem
       position absolute
       bottom 0%
-      left 100%
-      transform translate(-100%,0)
+      left 0%
+      transform translate(5%,0)
       overflow hidden
       box-sizing border-box
       z-index 2

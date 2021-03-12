@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     async getimg(token) {
-      let temp = await axios.get('http://47.115.56.165/user/lib', {headers:{'Authorization':token}})
+      let temp = await axios.get('https://foodplayerbe.ncuos.com/user/lib', {headers:{'Authorization':token}})
       console.log('temp',temp.data)
       let second = temp.data.data
       for(let i = 0;i < temp.data.data.answerRecord.length;i++) {
