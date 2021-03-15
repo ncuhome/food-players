@@ -3,7 +3,6 @@
     <!--仅用于管理员登录-->
     <div class="title_img" v-show="!Loading">
       <img src="/img/美食玩家.png" alt="美食玩家">
-      <img class="t_two" src="/img/t2.png" alt="food players">
     </div>
     <div class="login_box" v-show="!Loading">
       <!--登录表单区域-->
@@ -84,12 +83,10 @@ export default {
       this.$refs.loginrefs.validate(async valid => {
         if (!valid) return
         let temp = await this.$http.post('https://os.ncuos.com/api/user/token', this.loginForm)
-        console.log(temp)
         if (temp.data.status !== 1) 
           return this.$message.error('登陆失败')
         localStorage.setItem('token', temp.data.token)
         let test = localStorage.getItem('token')
-        console.log(test)
         this.$router.push('/firstPage')
         return this.$message({
           message: '登陆成功',
@@ -111,7 +108,7 @@ export default {
     .title_img
       position absolute
       left 50%
-      top 25%
+      top 20%
       transform translate(-50%, -50%)
       .t_two
         top 60%

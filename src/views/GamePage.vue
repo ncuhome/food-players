@@ -14,108 +14,133 @@
           秒
         </div>
       </span>
-      <span @click="musicPause" style="width: 20%;display: inline-block;color: #F4EA2A;font-size: .25rem" class="iconfont iconyinle">
+      <span 
+        @click="musicPause" 
+        style="
+          width: 20%;
+          display: inline-block;
+          color: #F4EA2A;
+          font-size: .25rem" 
+        class="iconfont iconyinle"
+      >
         <audio src="/music/小手鞠.mp3" loop autoplay ref="musicPlay"></audio>
       </span>
     </div>
-    <div class="game">
-      <div id = "content"></div>
-      <div class="gameprin" ref="prin">
-        <div class="paw-content">
-          <div class="nullA">
+    <div 
+      style="
+        width: 100%;
+        height: 5.55rem;
+        background: url('/img/大背景.png') center center no-repeat;
+        background-size: 109% 100%;
+        bottom: 0%;
+        position: absolute;
+      "
+    >
+      <div class="game">
+        <div id = "content"></div>
+        <div class="gameprin" ref="prin">
+          <div class="paw-content">
+            <div class="nullA">
+            </div>
+            <img 
+              class="pawimgA" 
+              src="/img/paw.png"
+              ref="pawA"
+            >
           </div>
-          <img 
-            class="pawimgA" 
-            src="/img/paw.png"
-            ref="pawA"
+          <div class="paw-content">
+            <div class="nullB">
+            </div>
+            <img 
+              class="pawimgB" 
+              src="/img/paw.png"
+              ref="pawB"
+            >
+          </div>
+          <div class="paw-content">
+            <div class="nullC">
+            </div>
+            <img 
+              class="pawimgC" 
+              src="/img/paw.png"
+              ref="pawC"
           >
-        </div>
-        <div class="paw-content">
-          <div class="nullB">
           </div>
-          <img 
-            class="pawimgB" 
-            src="/img/paw.png"
-            ref="pawB"
+          <div class="game-item">
+            <span class="foodA" ref="A">
+              <img style="width: 80%" src="/img/碟子.png" :alt="problem[0]">
+              <div 
+                style="position: absolute;
+                  top: 50%;
+                  transform: translate(0,-50%);
+                  width: 30%;
+                  word-wrap: break-word;
+                  box-sizing: border-box;
+                  padding: 10px;
+                  display: block;
+                  margin: 0 auto"
+              >{{problem[0]}}</div>
+            </span>
+            <span class="foodB" ref="B">
+              <img style="width: 80%" src="/img/碟子.png" :alt="problem[1]">
+              <div 
+                style="position: absolute;
+                  top: 50%;
+                  transform: translate(0,-50%);
+                  width: 30%;
+                  word-wrap: break-word;
+                  box-sizing: border-box;
+                  padding: 10px;
+                  color: #EA5E1F"
+              >{{problem[1]}}</div>
+            </span>
+            <span class="foodC" ref="C">
+              <img style="width: 80%" src="/img/碟子.png" :alt="problem[2]">
+              <div 
+                style="position: absolute;
+                  top: 50%;
+                  transform: translate(0,-50%);
+                  width: 30%;
+                  word-wrap: break-word;
+                  box-sizing: border-box;
+                  padding: 10px"
+              >{{problem[2]}}</div>
+            </span>
+          </div>
+        </div>
+        <div class="choice">
+          <span class="choice-item-box">
+            <img src="/img/stick.png" class="choice-item" @click="pick('1')" v-show="choiceClose">
+            <!--点击后的拉杆-->
+            <img src="/img/stickA.png" class="choice-item" v-show="!choiceClose && !choiceCloseA">
+            <!--其他拉杆点击后的拉杆-->
+            <img src="/img/stickB.png" class="choice-item" v-show="choiceCloseA">
+          </span>
+          <span class="choice-item-box">
+            <img src="/img/stick.png" class="choice-item" @click="pick('2')" v-show="choiceClose">
+            <img src="/img/stickA.png" class="choice-item" v-show="!choiceClose && !choiceCloseB">
+            <img src="/img/stickB.png" class="choice-item" v-show="choiceCloseB">
+          </span>
+          <span class="choice-item-box">
+            <img src="/img/stick.png" class="choice-item" @click="pick('3')" v-show="choiceClose">
+            <img src="/img/stickA.png" class="choice-item" v-show="!choiceClose && !choiceCloseC">
+            <img src="/img/stickB.png" class="choice-item" v-show="choiceCloseC">
+          </span>
+        </div>
+        <div class="problem-c" :style="{fontSize: '.16rem',color: '#fff'}">
+          <span class="pro-text" 
+            style="
+              vertical-align: middle; 
+              background: url('/img/题目框.png') center center; 
+              background-size: 80% 80%;
+              background-repeat: no-repeat"
           >
-        </div>
-        <div class="paw-content">
-          <div class="nullC">
-          </div>
-          <img 
-            class="pawimgC" 
-            src="/img/paw.png"
-            ref="pawC"
-        >
-        </div>
-        <div class="game-item">
-          <span class="foodA" ref="A">
-            <img style="width: 100%" src="/img/碟子.png" :alt="problem[0]">
-            <div 
-              style="position: absolute;
-                top: 50%;
-                transform: translate(0,-50%);
-                width: 30%;
-                word-wrap: break-word;
-                box-sizing: border-box;
-                padding: 10px;
-                display: block;
-                margin: 0 auto"
-            >{{problem[0]}}</div>
+            <img style="max-height: 80%;max-width: 80%;display: inline-block" :src="imgUrl" alt="">
           </span>
-          <span class="foodB" ref="B">
-            <img style="width: 100%" src="/img/碟子.png" :alt="problem[1]">
-            <div 
-              style="position: absolute;
-                top: 50%;
-                transform: translate(0,-50%);
-                width: 30%;
-                word-wrap: break-word;
-                box-sizing: border-box;
-                padding: 10px;
-                color: #EA5E1F"
-            >{{problem[1]}}</div>
-          </span>
-          <span class="foodC" ref="C">
-            <img style="width: 100%" src="/img/碟子.png" :alt="problem[2]">
-            <div 
-              style="position: absolute;
-                top: 50%;
-                transform: translate(0,-50%);
-                width: 30%;
-                word-wrap: break-word;
-                box-sizing: border-box;
-                padding: 10px"
-            >{{problem[2]}}</div>
+          <span class="pro-text">
+            <el-button class="toEnd" @click="next" :disabled="nextClose">{{tonext}}</el-button>
           </span>
         </div>
-      </div>
-      <div class="choice">
-        <span class="choice-item-box">
-          <img src="/img/stick.png" class="choice-item" @click="pick('1')" v-show="choiceClose">
-          <!--点击后的拉杆-->
-          <img src="/img/stickA.png" class="choice-item" v-show="!choiceClose && !choiceCloseA">
-          <!--其他拉杆点击后的拉杆-->
-          <img src="/img/stickB.png" class="choice-item" v-show="choiceCloseA">
-        </span>
-        <span class="choice-item-box">
-          <img src="/img/stick.png" class="choice-item" @click="pick('2')" v-show="choiceClose">
-          <img src="/img/stickA.png" class="choice-item" v-show="!choiceClose && !choiceCloseB">
-          <img src="/img/stickB.png" class="choice-item" v-show="choiceCloseB">
-        </span>
-        <span class="choice-item-box">
-          <img src="/img/stick.png" class="choice-item" @click="pick('3')" v-show="choiceClose">
-          <img src="/img/stickA.png" class="choice-item" v-show="!choiceClose && !choiceCloseC">
-          <img src="/img/stickB.png" class="choice-item" v-show="choiceCloseC">
-        </span>
-      </div>
-      <div class="problem-c" :style="{fontSize: '.16rem',color: '#fff'}">
-        <span class="pro-text" style="vertical-align: middle">
-          <img style="max-height: 100%;max-width: 100%;display: inline-block" :src="imgUrl" alt="">
-        </span>
-        <span class="pro-text">
-          <el-button class="toEnd" @click="next" :disabled="nextClose">{{tonext}}</el-button>
-        </span>
       </div>
     </div>
   </div>
@@ -168,7 +193,7 @@ export default {
       let choice = type
       this.choiceClose = false
       this.nextClose = false
-      let long = this.$refs.prin.getBoundingClientRect().height - 145 //爪子伸长的距离
+      let long = this.$refs.prin.getBoundingClientRect().height - 110 //爪子伸长的距离
       switch (type) {
         case '1': {
           this.release = 1
@@ -330,7 +355,7 @@ export default {
     async setrecord() {
       let token = 'passport' + ' ' + localStorage.getItem('token')
       let record = await axios.post(
-        'http://47.115.56.165/user/answers', 
+        'https://foodplayerbe.ncuos.com/user/answers', 
         this.result,
         {headers:{'Authorization':token,'Content-Type':'application/json'}})
       let score = record.data.data
@@ -458,7 +483,7 @@ export default {
         vertical-align middle
     .game
       background: url('/img/娃娃机.png') center center no-repeat
-      background-size 100% 100%
+      background-size 104% 100%
       width 100%
       height 5.45rem
       bottom 0%
@@ -466,10 +491,10 @@ export default {
       clear both
       .gameprin
         width 75%
-        height 45.5%
+        height 28.5%
         position absolute
         left 50%
-        top 3.3%
+        top 11.3%
         transform translate(-50%,0)
         .paw-content
           width 33.3%
@@ -512,9 +537,9 @@ export default {
             height .56rem
         .game-item
           width 100%
-          height 40%
+          height 42%
           position absolute
-          bottom 3%
+          bottom 4%
           text-align center
           font-size .18rem
           color #ffffff
@@ -522,24 +547,21 @@ export default {
             width 30%
             height 100%
             display inline-block
-            overflow hidden
             text-align center
           .foodB
             width 30%
             height 100%
             display inline-block
-            overflow hidden
             text-align center
           .foodC
             width 30%
             height 100%
             display inline-block
-            overflow hidden
             text-align center
       .choice
         width 100%
         position absolute
-        bottom 35%
+        bottom 42%
         padding-left 14%
         padding-right 14%
         box-sizing border-box

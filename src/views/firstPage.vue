@@ -56,11 +56,6 @@ export default {
       left 50%
       top 20%
       transform translate(-50%, -50%)
-      .t_two
-        top 60%
-        left 50%
-        position absolute
-        transform translate(-50%, -50%)
     .choose
       position absolute
       top 80%

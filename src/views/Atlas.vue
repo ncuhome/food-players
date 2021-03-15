@@ -32,7 +32,17 @@
       </div>
       <div class="slip">
         <div class="iconfont iconjiantou-copy-copy-copy row"></div>
-        <span style="width: 60%;margin: 2rem.3rem;height: .55rem;vertical-align: middle;display: table-cell;">左右滑动了解更多美食</span>
+        <span 
+          style="
+            width: 60%;
+            margin: 2rem.3rem;
+            height: .55rem;
+            vertical-align: middle;
+            display: table-cell;
+          "
+        >
+          左右滑动了解更多美食
+        </span>
         <div class="iconfont iconjiantou-copy-copy-copy1 row"></div>
       </div>
     </div>
