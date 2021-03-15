@@ -24,7 +24,6 @@
       :style="{
           height: rule.height+'%',
           width: rule.width+'%',
-          backgroundColor: rule.backgroundColor,
           position: rule.position,
           bottom: rule.bottom+'%',
           fontSize: rule.fontSize+'px',
@@ -38,12 +37,18 @@
           fontFamily: 'FZCuYuan-M03S',
           lineHeight: '22px'
         }"
+        class="rule"
         v-show="rule.flag"
       >
-        <p style="width: 100%;text-align: center;font-size: .38rem; margin-bottom: .3rem">游戏介绍</p>
-        我们的游戏非常简单，游戏共有三轮，在每轮游戏中你只需要选出你看到的美食的名称就好了,每题仅可选择一次。游戏允许中途退出，但我们十分希望你可以玩到最后，因为退出后就只能查看自己参与部分的答案，且最终分数只计算第一轮的分数，这样可能会让你错失认识更多南大美食的机会噢。完整参与游戏并答对全部美食后还可获得小家园周边一份，那么…现在就让我们一起进入南大的美食世界吧！
-        <div class="togame" id="togame">
-          <span>此处上划进入游戏</span>
+        <div class="rule_2">
+          <p style="width: 100%;text-align: center;font-size: .38rem; margin-bottom: .2rem;">游戏介绍</p>
+          我们的游戏非常简单，游戏共有三轮，在每轮游戏中你只需要选出你看到的美食的名称就好了,每题仅可选择一次。
+          游戏允许中途退出，但我们十分希望你可以玩到最后，因为退出后就只能查看自己参与部分的答案，且最终分数只计算第一轮的分数，
+          这样可能会让你错失认识更多南大美食的机会噢。
+          完整参与游戏并答对全部美食后还可获得小家园周边一份，那么…现在就让我们一起进入南大的美食世界吧！
+          <div class="togame" id="togame">
+            <span>此处上划进入游戏</span>
+          </div>
         </div>
       </div>
     </transition>
@@ -63,7 +68,6 @@ export default {
       rule: {
         height: 80,
         width: 100,
-        backgroundColor: '#FFC21C',
         bottom: 0,
         position: 'absolute',
         fontSize: 18,
@@ -127,7 +131,7 @@ export default {
       this.$router.push('/GamePage')
     },
     async userInit(token) {
-      let temp = await axios.get('http://47.115.56.165/user/', {headers:{'Authorization':token}})
+      let temp = await axios.get('https://foodplayerbe.ncuos.com/user/', {headers:{'Authorization':token}})
       if(temp.data.data === null|| temp.data.data === undefined)
         this.count = false
       else
@@ -188,14 +192,29 @@ export default {
         .up-img
           width 100%
           height 100%
+    .rule
+      background: url('/img/规则框.png')
+      background-size 100% 120%
+      .rule_2
+        background: url('/img/规则框-2.png')
+        background-size 100% 100%
+        position absolute
+        top 10%
+        left 2%
+        width 96%
+        height 100%
+        box-sizing border-box
+        padding 10%
+        padding-top 7%
     .togame
       width 100%
       height .5rem
       position absolute
-      top 90%
+      top 77%
       left 0
       background-color rgba(112,112,112,0.6)
       text-align center
       box-sizing border-box
       padding-top .15rem
+      z-index 2
 </style>
