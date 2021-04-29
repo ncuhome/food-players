@@ -343,7 +343,10 @@ export default {
       }
     },
     async getimg(token) {
-      let temp = await axios.get('https://foodplayerbe.ncuos.com/user/questions', {headers:{'Authorization':token}})
+      let temp = await axios.get(
+        'https://foodplayerbe.ncuos.com/user/questions', 
+        {headers:{'Authorization':token}
+      })
       console.log(temp.data.data)
       this.info = temp.data.data
       console.log('info:',this.info)
@@ -415,29 +418,6 @@ export default {
     this.getimg(token)
     this.musicPlay()
     this.timecount(this.flag)
-    /*
-    async function getimg(any) {
-      let temp = await axios.get('http://47.115.56.165/user/questions', {headers:{'Authorization':token}})
-      console.log(temp.data.data)
-      any = temp.data.data
-      console.log('info:',any)
-    }
-    getimg(this.info)
-    console.log("thisinfo",this.info)
-    */
-    /*
-    let test = getimg()
-    console.log('test:',test)
-    */
-    /*
-    for(let i = 1;i <= 20;i++) {
-      let pro = {
-        url: test[i].picUrl,
-        sec: test[i].selections
-      }
-      this.info.push(pro)
-    }
-    console.log('info:',this.info)*/
   },
 }
 </script>
