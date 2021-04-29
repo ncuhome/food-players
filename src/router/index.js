@@ -8,6 +8,7 @@ import Atlas from '../views/Atlas.vue'
 import Bonus from '../views/Bonus.vue'
 import End from '../views/End.vue'
 import Answers from '@/views/answers.vue'
+import Admin from '@/views/admin.vue'
 import Miracle from 'incu-webview'
 
 Vue.use(VueRouter)
@@ -45,6 +46,10 @@ Vue.use(VueRouter)
     path: '/Answers',
     name: 'Answers',
     component: Answers
+  }, {
+    path: '/Admin',
+    name: 'Admin',
+    component: Admin
   },
 ]
 
@@ -83,6 +88,14 @@ router.beforeEach((to, from, next) => {
     return next('/')
   else 
     return next()
+})
+
+router.afterEach((to, from, next) => {
+  window.gtag('config', this.GA_TRACKING_ID, {
+      page_title: title,
+      page_path: page,
+      page_location: location
+  })
 })
 
 export default router
