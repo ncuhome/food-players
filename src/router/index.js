@@ -8,17 +8,18 @@ import Atlas from '../views/Atlas.vue'
 import Bonus from '../views/Bonus.vue'
 import End from '../views/End.vue'
 import Answers from '@/views/answers.vue'
+import Admin from '@/views/admin.vue'
 import Miracle from 'incu-webview'
 
 Vue.use(VueRouter)
 
   const routes = [
   {
-    path: '/',
+    path: '/Login',
     name: 'Login',
     component: Login
   }, {
-    path: '/firstPage',
+    path: '/',
     name: 'firstPage',
     component: firstPage
   }, {
@@ -45,6 +46,10 @@ Vue.use(VueRouter)
     path: '/Answers',
     name: 'Answers',
     component: Answers
+  }, {
+    path: '/Admin',
+    name: 'Admin',
+    component: Admin
   },
 ]
 
@@ -76,12 +81,23 @@ function getDataAndSet() {
 
 router.beforeEach((to, from, next) => {
   getDataAndSet()
-  if(to.path === '/') return next()
+  if(to.path === '/Login') return next()
   const tokenstr = localStorage.getItem('token')
-  if(!tokenstr) 
-    return next('/')
-  else 
+  const ustoken = localStorage.getItem('ustoken')
+  if(tokenstr && to.path !== '/Admin') 
     return next()
+  else if(ustoken)
+    return next()
+  else if(!ustoken)
+    return next('/Login')
+  else
+    return next('/')
+})
+
+router.afterEach((to, from, next) => {
+  window.gtag('config', '195866498', {
+      page_path: to.path,
+  })
 })
 
 export default router

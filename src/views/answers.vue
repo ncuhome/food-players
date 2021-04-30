@@ -43,7 +43,7 @@ export default {
   },
   methods:{
     async getans(token) {
-      let temp = await axios.get('http://47.115.56.165/user/answer/current', {headers:{'Authorization':token}})
+      let temp = await axios.get('https://foodplayerbe.ncuos.com/user/answer/current', {headers:{'Authorization':token}})
       console.log(temp)
       let second = temp.data.data
       for(let i = 0;i < temp.data.data.length;i++) {
