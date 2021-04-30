@@ -15,11 +15,11 @@ Vue.use(VueRouter)
 
   const routes = [
   {
-    path: '/',
+    path: '/Login',
     name: 'Login',
     component: Login
   }, {
-    path: '/firstPage',
+    path: '/',
     name: 'firstPage',
     component: firstPage
   }, {
@@ -81,20 +81,22 @@ function getDataAndSet() {
 
 router.beforeEach((to, from, next) => {
   getDataAndSet()
-  if(to.path === '/') 
-    return next()
+  if(to.path === '/Login') return next()
   const tokenstr = localStorage.getItem('token')
-  if(!tokenstr) 
-    return next('/')
-  else 
+  const ustoken = localStorage.getItem('ustoken')
+  if(tokenstr && to.path !== '/Admin') 
     return next()
+  else if(ustoken)
+    return next()
+  else if(!ustoken)
+    return next('/Login')
+  else
+    return next('/')
 })
 
 router.afterEach((to, from, next) => {
-  window.gtag('config', this.GA_TRACKING_ID, {
-      page_title: title,
-      page_path: page,
-      page_location: location
+  window.gtag('config', '195866498', {
+      page_path: to.path,
   })
 })
 

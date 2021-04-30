@@ -1,32 +1,29 @@
 <template>
   <div>
     <div class="formContent">
-      <el-form  label-width="80px">
+      <el-form :model="question" label-width="80px">
         <el-form-item label="食物介绍" type="textarea">
-          <el-input></el-input>
+          <el-input v-model="question.body"></el-input>
         </el-form-item>
         <el-form-item label="正确答案">
-          <el-input></el-input>
+          <el-input v-model="question.correctAnswer"></el-input>
         </el-form-item>
-        <el-form-item label="错误答案">
-          <el-input></el-input>
+        <el-form-item label="错误答案1">
+          <el-input v-model="question.wrongAnswer1"></el-input>
         </el-form-item>
-        <el-form-item label="错误答案">
-          <el-input></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-upload
-            class="upload-demo"
-            drag
-            action=""
-            multiple>
-            <i class="el-icon-upload"></i>
-            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-            <div class="el-upload__tip" slot="tip">只能上传jpg/png文件</div>
-          </el-upload>
+        <el-form-item label="错误答案2">
+          <el-input v-model="question.wrongAnswer2"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button @click="submit">上传</el-button>
+          <el-button @click="upload">点击选择绘制图片</el-button>
+          <input type="file" ref="evfile" @change="uploadFile_change" style="display:none">
+        </el-form-item>
+        <el-form-item>
+          <el-button @click="uploadReal">点击选择实物图片</el-button>
+          <input type="file" ref="enfile" @change="uploadFile_change_real" style="display:none">
+        </el-form-item>
+        <el-form-item>
+          <el-button @click="submit">提交题目</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -35,6 +32,8 @@
 
 <script>
 import axios from 'axios'
+import * as qiniu from 'qiniu-js';
+
 
 export default {
   name: 'Admin',
@@ -50,14 +49,20 @@ export default {
         realPicUrl: '',
       },
       passport: '',
+      fileNum: false,
+      limit: 1,
+      picList: [],
+      realList: [],
     }
   },
   methods: {
     async submit() {
-      const token = 'passport' + ' ' + localStorage.getItem('token')
+      console.log(this.question)
+      const token = localStorage.getItem('ustoken')
       const res = await axios.post(
-        'http://47.115.56.165/admin/question', 
-        {headers:{'Authorization':token}}
+        'https://foodplayerbe.ncuos.com/admin/question', 
+        this.question,
+        {headers:{'Authorization':token}},
       )
       if(res.data.data.status === 1) {
         this.$message({
@@ -72,17 +77,71 @@ export default {
       }
     },
     async getPassport() {
-      const token = 'passport' + ' ' + localStorage.getItem('token')
+      const token = localStorage.getItem('ustoken')
       const res = await axios.get(
-        'http://47.115.56.165/admin/qiniu/token', 
+        'https://foodplayerbe.ncuos.com/admin/qiniu/token', 
         {headers:{'Authorization':token}}
       )
-      this.data.passport = res.data.data.data
-      console.log(res)
-    }
+      return res
+    },
+    upload() {
+      this.$refs.evfile.click()
+    },
+    uploadReal() {
+      this.$refs.enfile.click()
+    },
+    uploadFile_change(evfile) {
+      this.getPassport().then(res => {
+        const token = res.data.data
+        console.log(token)
+        var file = evfile.target.files[0]
+        const key = evfile.name
+        var observable = qiniu.upload(file, key, token)
+        observable.subscribe({
+          next: (result) => {
+          // 主要用来展示进度
+            console.log(result)
+          },
+          error: (errResult) => {
+          // 失败报错信息
+            console.log(errResult)
+          },
+          complete: (result) => {
+          // 接收成功后返回的信息
+            this.question.picUrl = 'http://sww.mingzhuziyou.top/' + result.key
+            console.log(1111111111111111111111111111111)
+            console.log(t1)
+          }
+        })
+      })
+    },
+    uploadFile_change_real(enfile) {
+      this.getPassport().then(res => {
+        const token = res.data.data
+        console.log(token)
+        var file = enfile.target.files[0]
+        const key = enfile.name
+        var observable = qiniu.upload(file, key, token)
+        observable.subscribe({
+          next: (result) => {
+          // 主要用来展示进度
+            console.log(result)
+          },
+          error: (errResult) => {
+          // 失败报错信息
+            console.log(errResult)
+          },
+          complete: (result) => {
+          // 接收成功后返回的信息
+            console.log(2222222222222222222222222222222222222222)
+            this.question.realPicUrl = 'http://sww.mingzhuziyou.top/' + result.key
+            console.log(t1)
+          }
+        })
+      })
+    },
   },
   mounted() {
-    this.getPassport()
   }
 }
 </script>
