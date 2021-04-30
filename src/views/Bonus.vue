@@ -40,7 +40,7 @@ export default {
       this.$router.push('/firstPage')
     },
     async getremain() {
-      let rem = await axios.get('http://47.115.56.165/remaining')
+      let rem = await axios.get('https://foodplayerbe.ncuos.com/remaining')
       console.log(rem)
       if(rem.data.data.data === false){
         this.message = '抱歉，奖品已经被领完了哦'
