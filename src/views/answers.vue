@@ -6,6 +6,7 @@
         class="atlas-items"
         v-for="(item,index) in answers"
         :key="index"
+        @click="showInfo(item.id)"
       >
         <img class="atlas-img" :src="item.picUrl" :alt="index">
         <div>{{item.name}}</div>
@@ -39,6 +40,10 @@ export default {
     return {
       answers:[],
       answerinfo: false,
+      // 控制详情页显示的内容
+      realFood: '',
+      foodname: '',
+      foodinfo: '',
     }
   },
   methods:{
@@ -49,6 +54,7 @@ export default {
       for(let i = 0;i < temp.data.data.length;i++) {
         let item = {
           picUrl: second[i].picUrl,
+          realFood: second[i].realPicUrl,
           id: i,
           name: second[i].name,
           body: second[i].body,
@@ -56,6 +62,12 @@ export default {
         this.atlasinfo.push(item)
       }
       console.log(this.answers)
+    },
+    showInfo(index) {
+      this.answerinfo = true
+      this.foodname = this.atlasinfo[index].name
+      this.foodinfo = this.atlasinfo[index].body
+      this.realFood = this.atlasinfo[index].picUrl
     }
   },
   mounted() {
