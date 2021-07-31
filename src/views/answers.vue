@@ -72,7 +72,7 @@ export default {
   },
   mounted() {
     console.log('答案信息：')
-    let token = 'passport' + ' ' + localStorage.getItem('token')
+    let token = 'passport' + ' ' + localStorage.getItem('ustoken')
     this.getans(token)
   }
 }

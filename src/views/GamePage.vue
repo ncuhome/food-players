@@ -350,7 +350,7 @@ export default {
       this.problem = this.info[0].selections
     },
     async setrecord() {
-      let token = 'passport' + ' ' + localStorage.getItem('token')
+      let token = 'passport' + ' ' + localStorage.getItem('ustoken')
       let record = await axios.post(
         'https://foodplayerbe.ncuos.com/user/answers', 
         this.result,
@@ -406,7 +406,7 @@ export default {
   },
   mounted() {
     // 获取题目
-    let token = 'passport' + ' ' + localStorage.getItem('token')
+    let token = 'passport' + ' ' + localStorage.getItem('ustoken')
     this.getimg(token)
     this.musicPlay()
     this.timecount(this.flag)

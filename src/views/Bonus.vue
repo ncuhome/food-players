@@ -47,7 +47,7 @@ export default {
     }
   },
   mounted() {
-    let token = 'passport' + ' ' + localStorage.getItem('token')
+    let token = 'passport' + ' ' + localStorage.getItem('ustoken')
     this.ifTake(token)
     this.getremain()
     this.ifplay = this.$store.state.hadplay

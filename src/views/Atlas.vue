@@ -159,7 +159,7 @@ export default {
   mounted() {
     console.log('图鉴信息：')
     // 获取题目
-    let token = 'passport' + ' ' + localStorage.getItem('token')
+    let token = 'passport' + ' ' + localStorage.getItem('ustoken')
     this.getimg(token)
   },
 }

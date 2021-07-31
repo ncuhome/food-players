@@ -153,7 +153,7 @@ export default {
     this.addHandler(game, 'touchend', this.handleTouchEvent)
     this.addHandler(game, 'touchmove', this.handleTouchEvent)
     this.addHandler(game, 'touchend', this.gamestart)
-    let token = 'passport' + ' ' + localStorage.getItem('token')
+    let token = 'passport' + ' ' + localStorage.getItem('ustoken')
     this.userInit(token)
   }
 }
