@@ -190,7 +190,6 @@ export default {
   methods: {
     pick(type) {
       this.breaktime = true
-      let choice = type
       this.choiceClose = false
       this.nextClose = false
       let long = this.$refs.prin.getBoundingClientRect().height - 110 //爪子伸长的距离
@@ -287,31 +286,30 @@ export default {
           cancelButtonText: '继续游戏',
           type: 'warning',
         }).then(() => {
-            this.$router.push('/Rule')
+            this.$router.push('/')
         }).catch(() => {
           this.$message({
-            type: 'info',
+            type: 'success',
             message: '已回到游戏',
-            duration: 0
+            duration: 1000
           });          
         });
     },
     next() {
-      let long = this.$refs.prin.getBoundingClientRect().height-250;
-      console.log('long:',long)
+      let long = this.$refs.prin.getBoundingClientRect().height-155;
       let tag = this.release
       console.log('tag',tag)
       if(tag == 1){
         anime({
           targets:'.foodA',
-          translateY: long,
+          translateY: 0-long,
           easing: 'easeInOutExpo',
         })
         this.release = 0
       }else if(tag == 2){
         anime({
           targets:'.foodB',
-          translateY: long,
+          translateY: 0-long,
           easing: 'easeInOutExpo',
         })
         this.release = 0
@@ -319,7 +317,7 @@ export default {
       else if(tag == 3){
         anime({
           targets:'.foodC',
-          translateY: long,
+          translateY: 0-long,
           easing: 'easeInOutExpo',
         })
         this.release = 0
@@ -347,13 +345,9 @@ export default {
         'https://foodplayerbe.ncuos.com/user/questions', 
         {headers:{'Authorization':token}
       })
-      console.log(temp.data.data)
       this.info = temp.data.data
-      console.log('info:',this.info)
       this.imgUrl = this.info[0].picUrl
       this.problem = this.info[0].selections
-      console.log('选项：',this.problem)
-      console.log('图片：',this.imgUrl)
     },
     async setrecord() {
       let token = 'passport' + ' ' + localStorage.getItem('token')
@@ -367,8 +361,6 @@ export default {
         let played = true
         this.$store.commit('recordpla',played)
       }
-      console.log('record:',record.data.data)
-      console.log('result:',this.result)
       this.$router.push('/End')
     },
     musicPlay() {

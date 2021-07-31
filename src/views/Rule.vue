@@ -137,11 +137,9 @@ export default {
       else
         this.count = true
       this.code = temp.data.data
-      console.log('用户请求结果：')
-      console.log(temp)
     },
     tohome() {
-      this.$router.push('/firstPage')
+      this.$router.push('/')
     }
   },
   mounted () {

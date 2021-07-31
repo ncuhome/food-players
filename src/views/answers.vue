@@ -89,10 +89,10 @@ export default {
     .title
       background-color #F8B706
       width 100%
-      height 1.5rem
+      height 1rem
       text-align center
       color #743816
-      padding-top .5rem
+      padding-top .25rem
       box-sizing border-box
     .atlas
       width 100%

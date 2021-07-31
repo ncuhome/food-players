@@ -33,11 +33,10 @@ export default {
   methods: {
     async ifTake(token) {
       let temp = await axios.get('https://foodplayerbe.ncuos.com/user/lib', {headers:{'Authorization':token}})
-      console.log(temp.data.data)
       this.untake = temp.data.data.obtained
     },
     tohome() {
-      this.$router.push('/firstPage')
+      this.$router.push('/')
     },
     async getremain() {
       let rem = await axios.get('https://foodplayerbe.ncuos.com/remaining')

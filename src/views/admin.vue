@@ -57,7 +57,6 @@ export default {
   },
   methods: {
     async submit() {
-      console.log(this.question)
       const token = localStorage.getItem('ustoken')
       const res = await axios.post(
         'https://foodplayerbe.ncuos.com/admin/question', 
@@ -109,8 +108,6 @@ export default {
           complete: (result) => {
           // 接收成功后返回的信息
             this.question.picUrl = 'http://sww.mingzhuziyou.top/' + result.key
-            console.log(1111111111111111111111111111111)
-            console.log(t1)
           }
         })
       })
@@ -133,7 +130,6 @@ export default {
           },
           complete: (result) => {
           // 接收成功后返回的信息
-            console.log(2222222222222222222222222222222222222222)
             this.question.realPicUrl = 'http://sww.mingzhuziyou.top/' + result.key
             console.log(t1)
           }

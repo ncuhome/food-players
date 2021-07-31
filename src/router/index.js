@@ -46,11 +46,11 @@ Vue.use(VueRouter)
     path: '/Answers',
     name: 'Answers',
     component: Answers
-  }, {
+  }, /*{
     path: '/Admin',
     name: 'Admin',
     component: Admin
-  },
+  },*/
 ]
 
 const router = new VueRouter({
@@ -73,7 +73,6 @@ function getDataAndSet() {
   getAppData().then((res) => {
     if (Miracle.isApp()){
       let token = res.user.token;
-      console.log('token:',token)
       localStorage.setItem('token', token)
     }
   })

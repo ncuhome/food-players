@@ -6,12 +6,27 @@
     </div>
     <div class="login_box" v-show="!Loading">
       <!--登录表单区域-->
-      <el-form :model="loginForm" :rules="loginRules" ref="loginrefs" label-width="0px">
+      <el-form 
+        :model="loginForm" 
+        :rules="loginRules" 
+        ref="loginrefs" 
+        label-width="0px"
+      >
         <el-form-item prop="username">
-          <el-input prefix-icon="iconfont iconshenfenzheng" size="large" v-model="loginForm.username" placeholder="请输入us用户名"></el-input>
+          <el-input 
+            prefix-icon="iconfont iconshenfenzheng" 
+            size="large" 
+            v-model="loginForm.username" 
+            placeholder="请输入云家园用户名"
+          ></el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input prefix-icon="iconfont iconmima" v-model="loginForm.password" placeholder="请输入密码" type="password"></el-input>
+          <el-input 
+            prefix-icon="iconfont iconmima" 
+            v-model="loginForm.password" 
+            placeholder="请输入密码" 
+            type="password"
+          ></el-input>
         </el-form-item>
         <el-form-item>
           <el-button 
@@ -82,14 +97,13 @@ export default {
         this.Loading = true
       this.$refs.loginrefs.validate(async valid => {
         if (!valid) return
-        let temp = await this.$http.post('https://api-usv2.ncuos.com/api/user/login', this.loginForm)
-        console.log(temp)
-        if (temp.status !== 200) {
-          this.$router.push('/')
+        let temp = await this.$http.post('https://os.ncuos.com/api/user/token', this.loginForm)
+        if (temp.data.status !== 1) {
+          this.$router.push('/Login')
           return this.$message.error('登陆失败')
         }
         localStorage.setItem('ustoken', temp.data.token)
-        this.$router.push('/Admin')
+        this.$router.push('/')
         return this.$message({
           message: '登陆成功',
           type: 'success',

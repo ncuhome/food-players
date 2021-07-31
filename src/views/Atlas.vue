@@ -74,7 +74,6 @@ export default {
   methods: {
     async getimg(token) {
       let temp = await axios.get('https://foodplayerbe.ncuos.com/user/lib', {headers:{'Authorization':token}})
-      console.log('temp',temp.data)
       let second = temp.data.data
       for(let i = 0;i < temp.data.data.answerRecord.length;i++) {
         let item = {
@@ -85,7 +84,6 @@ export default {
         }
         this.atlasinfo.push(item)
       }
-      console.log('info:',this.atlasinfo)
     },
     showinfo(index) {
       this.showatlas = true
@@ -155,7 +153,7 @@ export default {
       this.showatlas = !this.showatlas
     },
     tohome() {
-      this.$router.push('/firstPage')
+      this.$router.push('/')
     }
   },
   mounted() {
