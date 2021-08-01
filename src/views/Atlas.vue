@@ -92,7 +92,6 @@ export default {
       this.foodinfo = this.atlasinfo[index].body
       this.foodpic = this.atlasinfo[index].picUrl
       let slipdom = document.getElementById('toslip')
-      console.log('dom:',slipdom)
       this.addHandler(slipdom, 'touchstart', this.handleTouchEvent)
       this.addHandler(slipdom, 'touchend', this.handleTouchEvent)
       this.addHandler(slipdom, 'touchmove', this.handleTouchEvent)
@@ -157,7 +156,6 @@ export default {
     }
   },
   mounted() {
-    console.log('图鉴信息：')
     // 获取题目
     let token = 'passport' + ' ' + localStorage.getItem('ustoken')
     this.getimg(token)

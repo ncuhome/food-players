@@ -40,7 +40,6 @@ export default {
     },
     async getremain() {
       let rem = await axios.get('https://foodplayerbe.ncuos.com/remaining')
-      console.log(rem)
       if(rem.data.data.data === false){
         this.message = '抱歉，奖品已经被领完了哦'
       }

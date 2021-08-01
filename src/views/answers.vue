@@ -38,7 +38,6 @@ export default {
   methods:{
     async getans(token) {
       let temp = await axios.get('https://foodplayerbe.ncuos.com/user/answer/current', {headers:{'Authorization':token}})
-      console.log(temp)
       let second = temp.data.data
       for(let i = 0;i < temp.data.data.length;i++) {
         let item = {
@@ -63,7 +62,6 @@ export default {
     }
   },
   mounted() {
-    console.log('答案信息：')
     let token = 'passport' + ' ' + localStorage.getItem('ustoken')
     this.getans(token)
   }

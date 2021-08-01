@@ -283,7 +283,6 @@ export default {
         default: break
       }
       //this.next()
-      console.log(this.result)
     },
     help() {
       this.$confirm('是否离开游戏?', '提示', {
