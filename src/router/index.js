@@ -9,6 +9,7 @@ import Bonus from '../views/Bonus.vue'
 import End from '../views/End.vue'
 import Answers from '@/views/answers.vue'
 import Admin from '@/views/admin.vue'
+import Empty from '@/views/empty.vue'
 import Miracle from 'incu-webview'
 
 Vue.use(VueRouter)
@@ -46,6 +47,10 @@ Vue.use(VueRouter)
     path: '/Answers',
     name: 'Answers',
     component: Answers
+  }, {
+    path: '/Empty',
+    name: 'Empty',
+    component: Empty
   }, /*{
     path: '/Admin',
     name: 'Admin',
@@ -88,7 +93,9 @@ router.beforeEach((to, from, next) => {
     return next()
   else if(ustoken && to.path !== '/Login')
     return next()
-  else if(!ustoken)
+  else if(!ustoken && to.path === '/Empty')
+    return next()
+  else if(!ustoken && to.path !== '/Empty')
     return next('/Login')
   else
     return next('/')

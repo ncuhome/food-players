@@ -98,9 +98,8 @@ export default {
       this.$refs.loginrefs.validate(async valid => {
         if (!valid) return
         let temp = await this.$http.post('https://os.ncuos.com/api/user/token', this.loginForm)
-        console.log(temp)
         if (temp.data.status !== 1) {
-          this.$router.push('/Login')
+          this.$router.push('/Empty')
           return this.$message.error('登陆失败')
         }
         localStorage.setItem('ustoken', temp.data.token)
