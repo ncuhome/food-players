@@ -9,7 +9,6 @@
         class="atlas-items"
         v-for="(item,index) in answers"
         :key="index"
-        @click="showInfo(item.id)"
       >
         <img class="atlas-img" :src="item.picUrl" :alt="index">
         <div style="font-size: 20px; color: #EA5E1F">{{item.name}}</div>
@@ -29,10 +28,6 @@ export default {
     return {
       answers:[],
       answerinfo: false,
-      // 控制详情页显示的内容
-      realFood: '',
-      foodname: '',
-      foodinfo: '',
     }
   },
   methods:{
@@ -50,12 +45,6 @@ export default {
         this.answers.push(item)
       }
       console.log(this.answers)
-    },
-    showInfo(index) {
-      this.answerinfo = true
-      this.foodname = this.atlasinfo[index].name
-      this.foodinfo = this.atlasinfo[index].body
-      this.realFood = this.atlasinfo[index].picUrl
     },
     tohome() {
       this.$router.replace('/')

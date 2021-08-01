@@ -78,6 +78,7 @@ export default {
       for(let i = 0;i < temp.data.data.answerRecord.length;i++) {
         let item = {
           picUrl: second.answerRecord[i].picUrl,
+          realPic: second.answerRecord[i].realPicUrl,
           id: i,
           name: second.answerRecord[i].name,
           body: second.answerRecord[i].body,
@@ -90,7 +91,7 @@ export default {
       this.page = index
       this.foodname = this.atlasinfo[index].name
       this.foodinfo = this.atlasinfo[index].body
-      this.foodpic = this.atlasinfo[index].picUrl
+      this.foodpic = this.atlasinfo[index].realPic
       let slipdom = document.getElementById('toslip')
       this.addHandler(slipdom, 'touchstart', this.handleTouchEvent)
       this.addHandler(slipdom, 'touchend', this.handleTouchEvent)
@@ -115,7 +116,6 @@ export default {
         case 'touchend':
           let spanX = event.changedTouches[0].pageX - this.startX
           let spanY = event.changedTouches[0].pageY - this.startY
-          console.log('spanX', spanX)
           if (spanY < -30) { // 向上
           }
           if (Math.abs(spanX) > Math.abs(spanY)) {
@@ -137,7 +137,6 @@ export default {
               this.foodinfo = this.atlasinfo[this.page].body
               this.foodpic = this.atlasinfo[this.page].picUrl
             }
-            console.log(this.page)
           } else {
             // 认定为垂直方向滑动
           }
