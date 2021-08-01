@@ -40,7 +40,6 @@ setInterval(async function() {
   if(user && pass) {
     const temp = await axios.post('https://os.ncuos.com/api/user/token', {username:user,password:pass})
     localStorage.setItem('ustoken', temp.data.token)
-    console.log(temp)
   }
 }, 300000)
 

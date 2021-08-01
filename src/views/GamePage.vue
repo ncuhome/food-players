@@ -292,7 +292,6 @@ export default {
         });
     },
     next() {
-      console.log(this.info)
       let long = this.$refs.prin.getBoundingClientRect().height-155;
       let tag = this.release
       if(tag == 1){
@@ -353,7 +352,6 @@ export default {
         {headers:{'Authorization':token,'Content-Type':'application/json'}})
       let score = record.data.data
       this.$store.commit('change',score)
-      console.log(record)
       if(score && score.score >= 60) {
         let played = true
         this.$store.commit('recordpla',played)
