@@ -67,45 +67,41 @@
           >
           </div>
           <div class="game-item">
-            <span class="foodA" ref="A">
+            <div class="foodA" ref="A">
               <img style="width: 80%" src="/img/碟子.png" :alt="problem[0]">
               <div 
                 style="position: absolute;
                   top: 50%;
-                  transform: translate(0,-50%);
-                  width: 30%;
+                  transform: translate(5%,-50%);
                   word-wrap: break-word;
-                  box-sizing: border-box;
                   padding: 10px;
                   display: block;
-                  margin: 0 auto"
+                  margin: 0 auto;
+                  color: #EA5E1F"
               >{{problem[0]}}</div>
-            </span>
-            <span class="foodB" ref="B">
+            </div>
+            <div class="foodB" ref="B">
               <img style="width: 80%" src="/img/碟子.png" :alt="problem[1]">
               <div 
                 style="position: absolute;
                   top: 50%;
-                  transform: translate(0,-50%);
-                  width: 30%;
+                  transform: translate(8%,-50%);
                   word-wrap: break-word;
-                  box-sizing: border-box;
                   padding: 10px;
                   color: #EA5E1F"
               >{{problem[1]}}</div>
-            </span>
-            <span class="foodC" ref="C">
+            </div>
+            <div class="foodC" ref="C">
               <img style="width: 80%" src="/img/碟子.png" :alt="problem[2]">
               <div 
                 style="position: absolute;
                   top: 50%;
-                  transform: translate(0,-50%);
-                  width: 30%;
+                  transform: translate(11%,-50%);
                   word-wrap: break-word;
-                  box-sizing: border-box;
-                  padding: 10px"
+                  padding: 10px;
+                  color: #EA5E1F"
               >{{problem[2]}}</div>
-            </span>
+            </div>
           </div>
         </div>
         <div class="choice">
@@ -165,7 +161,7 @@ export default {
       // 用于切换题目
       flag: 1,
       // 储存答题情况，返回给后端
-      result: ['','','','','','','','','','','','','','','','','','','',''],
+      result: ['','','','','','','','','','',],
       // 按钮文本
       tonext: '确定，下一题',
       // 用于确定切换音乐播放状态
@@ -296,9 +292,9 @@ export default {
         });
     },
     next() {
+      console.log(this.info)
       let long = this.$refs.prin.getBoundingClientRect().height-155;
       let tag = this.release
-      console.log('tag',tag)
       if(tag == 1){
         anime({
           targets:'.foodA',
@@ -357,7 +353,8 @@ export default {
         {headers:{'Authorization':token,'Content-Type':'application/json'}})
       let score = record.data.data
       this.$store.commit('change',score)
-      if(score.score >= 60) {
+      console.log(record)
+      if(score && score.score >= 60) {
         let played = true
         this.$store.commit('recordpla',played)
       }
@@ -391,7 +388,6 @@ export default {
           if(!this.breaktime) {
             this.breaktime = !this.breaktime
             this.result[index-1] = ''
-            console.log('插入空值',this.result)
           }
           this.nextClose = false
           this.choiceClose = false
@@ -520,11 +516,13 @@ export default {
             height 100%
             display inline-block
             text-align center
+            box-sizing border-box
           .foodB
             width 30%
             height 100%
             display inline-block
             text-align center
+            box-sizing border-box
           .foodC
             width 30%
             height 100%

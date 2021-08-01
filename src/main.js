@@ -34,6 +34,16 @@ console.log(isApp)
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 
+setInterval(async function() {
+  const user = localStorage.getItem('user')
+  const pass = localStorage.getItem('pass')
+  if(user && pass) {
+    const temp = await axios.post('https://os.ncuos.com/api/user/token', {username:user,password:pass})
+    localStorage.setItem('ustoken', temp.data.token)
+    console.log(temp)
+  }
+}, 300000)
+
 new Vue({
   router,
   store,
