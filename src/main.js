@@ -41,7 +41,7 @@ setInterval(async function() {
     const temp = await axios.post('https://os.ncuos.com/api/user/token', {username:user,password:pass})
     localStorage.setItem('ustoken', temp.data.token)
   }
-}, 300000)
+}, 20000)
 
 new Vue({
   router,
