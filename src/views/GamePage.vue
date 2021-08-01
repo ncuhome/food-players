@@ -72,12 +72,15 @@
               <div 
                 style="position: absolute;
                   top: 50%;
-                  transform: translate(5%,-50%);
+                  transform: translate(-2%,-50%);
                   word-wrap: break-word;
+                  width: 90px;
+                  box-sizing: border-box;
                   padding: 10px;
                   display: block;
                   margin: 0 auto;
-                  color: #EA5E1F"
+                  color: #EA5E1F;
+                  word-break:break-all"
               >{{problem[0]}}</div>
             </div>
             <div class="foodB" ref="B">
@@ -85,10 +88,13 @@
               <div 
                 style="position: absolute;
                   top: 50%;
-                  transform: translate(8%,-50%);
+                  transform: translate(-2%,-50%);
                   word-wrap: break-word;
+                  width: 90px;
+                  box-sizing: border-box;
                   padding: 10px;
-                  color: #EA5E1F"
+                  color: #EA5E1F;
+                  word-break:break-all"
               >{{problem[1]}}</div>
             </div>
             <div class="foodC" ref="C">
@@ -96,10 +102,13 @@
               <div 
                 style="position: absolute;
                   top: 50%;
-                  transform: translate(11%,-50%);
+                  transform: translate(-2%,-50%);
                   word-wrap: break-word;
+                  width: 90px;
+                  box-sizing: border-box;
                   padding: 10px;
-                  color: #EA5E1F"
+                  color: #EA5E1F
+                  word-break:break-all"
               >{{problem[2]}}</div>
             </div>
           </div>

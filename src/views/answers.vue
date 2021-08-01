@@ -1,5 +1,8 @@
 <template>
   <div class="first_c">
+    <div @click="tohome" style="position: absolute; left: .4rem;color: #ffffff">
+      <span class="iconfont iconxiazai6"></span>
+    </div>
     <div class="title" v-show="! answerinfo">答案</div>
     <div class="atlas" v-show="! answerinfo">
       <span 
@@ -9,22 +12,8 @@
         @click="showInfo(item.id)"
       >
         <img class="atlas-img" :src="item.picUrl" :alt="index">
-        <div>{{item.name}}</div>
+        <div style="font-size: 20px; color: #EA5E1F">{{item.name}}</div>
       </span>
-    </div>
-    <div class="info" v-show="answerinfo">
-      <div style="margin-left:.3rem,margin-top:.3rem">
-        <span @click="change" style="margin-left: .4rem;color: #FFC21C" class="iconfont iconxiazai6"></span>
-      </div>
-      <div class="item-img">
-        <div style="margin-bottom:.2rem">
-          <p :style="{fontSize:'.27rem',color:'#EA5E1F'}">{{foodname}}</p>
-        </div>
-        <img style="width:100%" :src="foodpic" :alt="page">
-        <div style="margin-top: .4rem">
-          <p>{{foodinfo}}</p>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -59,7 +48,7 @@ export default {
           name: second[i].name,
           body: second[i].body,
         }
-        this.atlasinfo.push(item)
+        this.answers.push(item)
       }
       console.log(this.answers)
     },
@@ -68,6 +57,9 @@ export default {
       this.foodname = this.atlasinfo[index].name
       this.foodinfo = this.atlasinfo[index].body
       this.realFood = this.atlasinfo[index].picUrl
+    },
+    tohome() {
+      this.$router.replace('/')
     }
   },
   mounted() {
