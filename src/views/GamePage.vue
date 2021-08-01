@@ -197,21 +197,21 @@ export default {
           anime({
             targets:'.nullA',
             height: long,
-            duration: 1000,
+            duration: 500,
             easing: 'easeInOutExpo',
             direction: 'alternate',
           })
           anime({
             targets:'.pawimgA',
             translateY: long,
-            duration: 1000,
+            duration: 500,
             easing: 'easeInOutExpo',
             direction: 'alternate',
           })
           anime({
             targets:'.foodA',
             translateY: -long,
-            delay: 1000,
+            delay: 300,
             easing: 'easeInOutExpo',
           })
           this.result[this.flag-1] = this.problem[0]
@@ -224,21 +224,21 @@ export default {
           anime({
             targets:'.nullB',
             height: long,
-            duration: 1000,
+            duration: 500,
             easing: 'easeInOutExpo',
             direction: 'alternate',
           })
           anime({
             targets:'.pawimgB',
             translateY: long,
-            duration: 1000,
+            duration: 500,
             easing: 'easeInOutExpo',
             direction: 'alternate',
           })
           anime({
             targets:'.foodB',
             translateY: -long,
-            delay: 1000,
+            delay: 300,
             easing: 'easeInOutExpo',
           })
           this.result[this.flag-1] = this.problem[1]
@@ -251,21 +251,21 @@ export default {
           anime({
             targets:'.nullC',
             height: long,
-            duration: 1000,
+            duration: 500,
             easing: 'easeInOutExpo',
             direction: 'alternate',
           })
           anime({
             targets:'.pawimgC',
             translateY: long,
-            duration: 1000,
+            duration: 500,
             easing: 'easeInOutExpo',
             direction: 'alternate',
           })
           anime({
             targets:'.foodC',
             translateY: -long,
-            delay: 1000,
+            delay: 300,
             easing: 'easeInOutExpo',
           })
           this.result[this.flag-1] = this.problem[2]
@@ -298,14 +298,12 @@ export default {
         anime({
           targets:'.foodA',
           translateY: 0-long,
-          easing: 'easeInOutExpo',
         })
         this.release = 0
       }else if(tag == 2){
         anime({
           targets:'.foodB',
           translateY: 0-long,
-          easing: 'easeInOutExpo',
         })
         this.release = 0
       }
@@ -313,7 +311,6 @@ export default {
         anime({
           targets:'.foodC',
           translateY: 0-long,
-          easing: 'easeInOutExpo',
         })
         this.release = 0
       }

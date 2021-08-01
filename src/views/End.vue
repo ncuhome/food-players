@@ -35,8 +35,6 @@ export default {
     getrecord() {
       let temp = this.$store.state.record
       this.record = temp
-      console.log('record:',this.record)
-      console.log('temp:',temp)
     },
     toAnswers() {
       this.$router.push('/Answers')
