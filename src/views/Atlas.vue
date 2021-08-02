@@ -75,15 +75,19 @@ export default {
     async getimg(token) {
       let temp = await axios.get('https://foodplayerbe.ncuos.com/user/lib', {headers:{'Authorization':token}})
       let second = temp.data.data
-      for(let i = 0;i < temp.data.data.answerRecord.length;i++) {
-        let item = {
-          picUrl: second.answerRecord[i].picUrl,
-          realPic: second.answerRecord[i].realPicUrl,
-          id: i,
-          name: second.answerRecord[i].name,
-          body: second.answerRecord[i].body,
+      if(second){
+        for(let i = 0;i < second.answerRecord.length;i++) {
+          let item = {
+            picUrl: second.answerRecord[i].picUrl,
+            realPic: second.answerRecord[i].realPicUrl,
+            id: i,
+            name: second.answerRecord[i].name,
+            body: second.answerRecord[i].body,
+          }
+          this.atlasinfo.push(item)
         }
-        this.atlasinfo.push(item)
+      } else {
+        return this.$message.error(temp.data.msg)
       }
     },
     showinfo(index) {
@@ -123,19 +127,23 @@ export default {
             if (spanX < 0) {
               // 向左滑动
               this.page = this.page + 1
-              if (this.page > this.atlasinfo.length)
-                break
+              if (this.page === this.atlasinfo.length){
+                this.page = this.atlasinfo.length - 1
+                return
+              }
               this.foodname = this.atlasinfo[this.page].name
               this.foodinfo = this.atlasinfo[this.page].body
-              this.foodpic = this.atlasinfo[this.page].picUrl
+              this.foodpic = this.atlasinfo[this.page].realPic
             }
             else {// 向右滑动
               this.page = this.page - 1
-              if (this.page < 0)
-                break
+              if (this.page < 0){
+                this.page = 0
+                return
+              }
               this.foodname = this.atlasinfo[this.page].name
               this.foodinfo = this.atlasinfo[this.page].body
-              this.foodpic = this.atlasinfo[this.page].picUrl
+              this.foodpic = this.atlasinfo[this.page].realPic
             }
           } else {
             // 认定为垂直方向滑动
@@ -155,7 +163,6 @@ export default {
     }
   },
   mounted() {
-    // 获取题目
     let token = 'passport' + ' ' + localStorage.getItem('ustoken')
     this.getimg(token)
   },
