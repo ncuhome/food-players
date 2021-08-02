@@ -8,6 +8,16 @@
         <div class="score">
           最终得分<span :style="{color:'#F4EA2A',fontSize:'.5rem',marginLeft:'.1rem',marginRight:'.1rem'}">{{record.score}}</span>分
         </div>
+        <div
+          :style="{
+            width: '100%',
+            position: 'absolute',
+            top: '60%',
+            textAlign: 'center',
+            color: '#EA5E1F',
+            fontSize: '.25rem',
+          }"
+        >共超过{{record.level}}名玩家</div>
       </div>
       <div class="tocheck">
         <el-button type="danger" class="check" @click="toAnswers">查看答案</el-button>
@@ -40,7 +50,7 @@ export default {
       this.$router.push('/Answers')
     },
     toHome() {
-      this.$router.push('/firstPage')
+      this.$router.push('/')
     }
   },
   mounted() {

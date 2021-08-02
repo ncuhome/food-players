@@ -107,7 +107,7 @@
                   width: 90px;
                   box-sizing: border-box;
                   padding: 10px;
-                  color: #EA5E1F
+                  color: #EA5E1F;
                   word-break:break-all"
               >{{problem[2]}}</div>
             </div>
