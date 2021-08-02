@@ -332,6 +332,7 @@ export default {
       if(this.flag === this.info.length + 1) {
         this.breaktime = true
         this.setrecord()
+        return
       }
       this.problem = this.info[this.flag-1].selections
       this.imgUrl = this.info[this.flag-1].picUrl
