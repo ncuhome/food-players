@@ -40,8 +40,12 @@ setInterval(async function() {
   if(user && pass) {
     const temp = await axios.post('https://os.ncuos.com/api/user/token', {username:user,password:pass})
     localStorage.setItem('ustoken', temp.data.token)
+  } else {
+    localStorage.removeItem('ustoken')
+    this.$router.push('/Login')
+    return this.$message.error('请重新登录');
   }
-}, 20000)
+}, 300000)
 
 new Vue({
   router,
