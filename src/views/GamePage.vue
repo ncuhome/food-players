@@ -39,6 +39,7 @@
       <div class="game">
         <div id = "content"></div>
         <div class="gameprin" ref="prin">
+          <div class="paw-content" style="width: 5%"></div>
           <div class="paw-content">
             <div class="nullA">
             </div>
@@ -176,7 +177,7 @@ export default {
       // 用于确定切换音乐播放状态
       playMusic: true,
       // 做题时间
-      limitTime: 0,
+      limitTime: 25,
       timer: null,
       // 用于切换按钮状态
       nextClose: true,
@@ -194,6 +195,7 @@ export default {
   },
   methods: {
     pick(type) {
+      clearInterval(this.timer)
       this.breaktime = true
       this.choiceClose = false
       this.nextClose = false
@@ -300,6 +302,7 @@ export default {
         });
     },
     next() {
+      clearInterval(this.timer)
       let long = this.$refs.prin.getBoundingClientRect().height-155;
       let tag = this.release
       if(tag == 1){
@@ -398,8 +401,7 @@ export default {
           this.choiceCloseA = true
           this.choiceCloseB = true
           this.choiceCloseC = true
-          clearInterval(this.timer)
-          this.timer = null
+          return
         }
       }, 1000)
     }
@@ -469,7 +471,7 @@ export default {
         top 11.3%
         transform translate(-50%,0)
         .paw-content
-          width 33.3%
+          width 30%
           height .56rem
           display inline-block
           position relative
@@ -513,7 +515,7 @@ export default {
           position absolute
           bottom 4%
           text-align center
-          font-size .18rem
+          font-size .15rem
           color #ffffff
           .foodA
             width 30%
