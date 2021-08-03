@@ -185,6 +185,7 @@ export default {
       font-size .2rem
       color #ffffff
       text-align center
+      overflow hidden
       .up-img-box
         width .8rem
         height .8rem
@@ -195,6 +196,7 @@ export default {
     .rule
       background: url('/img/规则框.png')
       background-size 100% 120%
+      overflow hidden
       .rule_2
         background: url('/img/规则框-2.png')
         background-size 100% 100%
@@ -207,6 +209,7 @@ export default {
         padding 10%
         padding-top 7%
         font-size .15rem
+        overflow hidden
     .togame
       width 100%
       height .5rem
