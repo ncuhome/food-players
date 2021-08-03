@@ -167,6 +167,7 @@ export default {
     width 100%
     height 100%
     font-size .5rem
+    overflow hidden
     .tip
       width 70%
       height 3rem
