@@ -8,10 +8,13 @@
         @click="tohome"
       ></span>
     </div>
-    <div>
+    <div style="width: 100%;height: 100%" v-show="ifplay">
       <img class="bonusPic" src="/img/奖券未领.png" alt="" v-show="untake">
       <img src="/img/奖券已领取.png" alt="" v-show="!untake">
     </div>
+    <div 
+      style="width: 100%; position: absolute; text-align: center; top: 45%; font-size: 40px; color: #F4EA2A"
+    >请答题后再查看哦</div>
   </div>
 </template>
 
@@ -32,8 +35,15 @@ export default {
   },
   methods: {
     async ifTake(token) {
-      let temp = await axios.get('https://foodplayerbe.ncuos.com/user/lib', {headers:{'Authorization':token}})
-      this.untake = temp.data.data.obtained
+      const temp = await axios.get('https://foodplayerbe.ncuos.com/user/lib', {headers:{'Authorization':token}})
+      console.log(temp)
+      if(temp.data.data) {
+        this.untake = temp.data.data.obtained
+        this.ifplay = true
+      }
+      else {
+
+      }
     },
     tohome() {
       this.$router.push('/')

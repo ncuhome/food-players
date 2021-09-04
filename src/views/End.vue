@@ -51,6 +51,9 @@ export default {
     },
     toHome() {
       this.$router.push('/')
+    },
+    toBonus() {
+      this.$router.push('/Bonus')
     }
   },
   mounted() {
