@@ -9,6 +9,8 @@
       <el-button @click="change('2')" class="choose-item" type="warning">查看图鉴</el-button>
       <br>
       <el-button @click="change('3')" class="choose-item" type="warning">我的奖品券</el-button>
+      <br>
+      <el-button @click="change('4')" class="choose-item" type="warning">退出登录</el-button>
     </div>
     <div class="f-img">
       <img class="b-img" src="/img/美食小家园.png" alt="">
@@ -37,6 +39,11 @@ export default {
           break
         case '3':
           this.$router.push('/Bonus')
+          break
+        case '4':
+          localStorage.removeItem('ustoken')
+          this.$router.push('/Login')
+          break
       }
     }
   }

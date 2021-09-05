@@ -93,6 +93,8 @@ router.beforeEach((to, from, next) => {
     return next()
   else if(ustoken && to.path !== '/Login')
     return next()
+  else if(ustoken && to.path === '/Login')
+    return next('/')
   else if(!ustoken && to.path === '/Empty')
     return next()
   else if(!ustoken && to.path !== '/Empty')
