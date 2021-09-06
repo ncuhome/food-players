@@ -1,6 +1,14 @@
 <template>
   <div class="first_c">
     <!--结束页面-->
+    <el-button 
+      class="bonus" 
+      size="mini" 
+      @click="toBonus"
+      round
+    >
+      我的奖品券
+    </el-button>
     <div>
       <div class="background">
         <img style="width: 100%" src="/img/礼花.png" alt="">
@@ -69,6 +77,13 @@ export default {
     width 100%
     height 100%
     font-size .5rem
+    .bonus
+      position absolute
+      top 2%
+      right 2%
+      color #ffffff
+      background-color red
+      font-size 0.15rem
     .background
       width 100%
       height 50%

@@ -36,13 +36,9 @@ export default {
   methods: {
     async ifTake(token) {
       const temp = await axios.get('https://foodplayerbe.ncuos.com/user/lib', {headers:{'Authorization':token}})
-      console.log(temp)
       if(temp.data.data) {
         this.untake = temp.data.data.obtained
         this.ifplay = true
-      }
-      else {
-
       }
     },
     tohome() {
