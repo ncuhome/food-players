@@ -14,6 +14,7 @@
     </div>
     <div 
       style="width: 100%; position: absolute; text-align: center; top: 45%; font-size: 40px; color: #F4EA2A"
+      v-show="!ifplay"
     >请答题后再查看哦</div>
   </div>
 </template>
