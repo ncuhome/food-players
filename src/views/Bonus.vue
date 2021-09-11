@@ -15,7 +15,7 @@
     <div 
       style="width: 100%; position: absolute; text-align: center; top: 45%; font-size: 40px; color: #F4EA2A"
       v-show="!ifplay"
-    >请答题后再查看哦</div>
+    >{{this.message}}</div>
   </div>
 </template>
 
@@ -37,9 +37,16 @@ export default {
   methods: {
     async ifTake(token) {
       const temp = await axios.get('https://foodplayerbe.ncuos.com/user/lib', {headers:{'Authorization':token}})
+      console.log(temp.data)
       if(temp.data.data) {
         this.untake = temp.data.data.obtained
-        this.ifplay = true
+        if(temp.data.firstScore >= 80) {
+          this.ifplay = true
+        } else {
+          this.message = '非常遗憾，首次答题分数未满80'
+        }
+      } else {
+        this.message = '请答题后再查看哦'
       }
     },
     tohome() {
