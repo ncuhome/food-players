@@ -37,10 +37,9 @@ export default {
   methods: {
     async ifTake(token) {
       const temp = await axios.get('https://foodplayerbe.ncuos.com/user/lib', {headers:{'Authorization':token}})
-      console.log(temp.data)
       if(temp.data.data) {
         this.untake = temp.data.data.obtained
-        if(temp.data.firstScore >= 80) {
+        if(temp.data.data.firstScore >= 80) {
           this.ifplay = true
         } else {
           this.message = '非常遗憾，首次答题分数未满80'
