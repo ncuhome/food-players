@@ -116,21 +116,21 @@
         </div>
         <div class="choice">
           <span class="choice-item-box">
-            <img src="/img/stick.png" class="choice-item" @click="pick('1')" v-show="choiceClose">
-            <!--点击后的拉杆-->
-            <img src="/img/stickA.png" class="choice-item" v-show="!choiceClose && !choiceCloseA">
-            <!--其他拉杆点击后的拉杆-->
-            <img src="/img/stickB.png" class="choice-item" v-show="choiceCloseA">
+            <img src="/img/stick.png" class="choice-item" @click="pick(1)" v-show="choicing===0">
+            <!--选择状态-->
+            <img src="/img/stickA.png" class="choice-item" v-show="choicing === 1">
+            <!--非选择状态-->
+            <img src="/img/stickB.png" class="choice-item" v-show="notChoicing(1)" @click="pick(1)">
           </span>
           <span class="choice-item-box">
-            <img src="/img/stick.png" class="choice-item" @click="pick('2')" v-show="choiceClose">
-            <img src="/img/stickA.png" class="choice-item" v-show="!choiceClose && !choiceCloseB">
-            <img src="/img/stickB.png" class="choice-item" v-show="choiceCloseB">
+            <img src="/img/stick.png" class="choice-item" @click="pick(2)" v-show="choicing===0">
+            <img src="/img/stickA.png" class="choice-item" v-show="choicing === 2">
+            <img src="/img/stickB.png" class="choice-item" v-show="notChoicing(2)" @click="pick(2)">
           </span>
           <span class="choice-item-box">
-            <img src="/img/stick.png" class="choice-item" @click="pick('3')" v-show="choiceClose">
-            <img src="/img/stickA.png" class="choice-item" v-show="!choiceClose && !choiceCloseC">
-            <img src="/img/stickB.png" class="choice-item" v-show="choiceCloseC">
+            <img src="/img/stick.png" class="choice-item" @click="pick(3)" v-show="choicing===0">
+            <img src="/img/stickA.png" class="choice-item" v-show="choicing === 3">
+            <img src="/img/stickB.png" class="choice-item" v-show="notChoicing(3)" @click="pick(3)">
           </span>
         </div>
         <div class="problem-c" :style="{fontSize: '.16rem',color: '#fff'}">
@@ -144,7 +144,9 @@
             <img style="max-height: 80%;max-width: 80%;display: inline-block" :src="imgUrl" alt="">
           </span>
           <span class="pro-text">
-            <el-button class="toEnd" @click="next" :disabled="nextClose">{{tonext}}</el-button>
+            <el-button class="toEnd" @click="next" :disabled="choicing===0"
+            v-bind:style="{ filter: choicing === 0  ? 'grayscale(40%)' : '' }"
+            >{{tonext}}</el-button>
           </span>
         </div>
       </div>
@@ -155,6 +157,12 @@
 <script>
 import anime from 'animejs'
 import axios from 'axios'
+
+const CHOICE_MAP = {
+        1: 'A',
+        2: 'B',
+        3: 'C',
+      }
 
 export default {
   name: 'GamePage',
@@ -179,112 +187,63 @@ export default {
       // 做题时间
       limitTime: 25,
       timer: null,
-      // 用于切换按钮状态
-      nextClose: true,
-      // 用于切换拉杆状态
-      choiceClose: true,
-      // 用于设置拉杆禁用
-      choiceCloseA: false,
-      choiceCloseB: false,
-      choiceCloseC: false,
       // 用于终止时间减少
       breaktime: false,
-      // 用于使选项复位
-      release: 0,
+      // 重新选择定时器，防止在动画结束前再次点击
+      repickTimer: null,
+      /**
+       * 0 初始状态 未选择
+       * 1 第一个选项 A
+       * 2 第二个选项 B
+       * 3 第三个选项 C
+       */
+      choicing: 0,
     }
   },
   methods: {
-    pick(type) {
-      clearInterval(this.timer)
-      this.breaktime = true
-      this.choiceClose = false
-      this.nextClose = false
-      let long = this.$refs.prin.getBoundingClientRect().height - 110 //爪子伸长的距离
-      switch (type) {
-        case '1': {
-          this.release = 1
-          this.choiceCloseB = true
-          this.choiceCloseC = true
-          anime({
-            targets:'.nullA',
-            height: long,
-            duration: 500,
-            easing: 'easeInOutExpo',
-            direction: 'alternate',
-          })
-          anime({
-            targets:'.pawimgA',
-            translateY: long,
-            duration: 500,
-            easing: 'easeInOutExpo',
-            direction: 'alternate',
-          })
-          anime({
-            targets:'.foodA',
-            translateY: -long,
-            delay: 300,
-            easing: 'easeInOutExpo',
-          })
-          this.result[this.flag-1] = this.problem[0]
-          break
-        }
-        case '2': {
-          this.release = 2
-          this.choiceCloseA = true
-          this.choiceCloseC = true
-          anime({
-            targets:'.nullB',
-            height: long,
-            duration: 500,
-            easing: 'easeInOutExpo',
-            direction: 'alternate',
-          })
-          anime({
-            targets:'.pawimgB',
-            translateY: long,
-            duration: 500,
-            easing: 'easeInOutExpo',
-            direction: 'alternate',
-          })
-          anime({
-            targets:'.foodB',
-            translateY: -long,
-            delay: 300,
-            easing: 'easeInOutExpo',
-          })
-          this.result[this.flag-1] = this.problem[1]
-          break
-        }
-        case '3': {
-          this.release = 3
-          this.choiceCloseB = true
-          this.choiceCloseA = true
-          anime({
-            targets:'.nullC',
-            height: long,
-            duration: 500,
-            easing: 'easeInOutExpo',
-            direction: 'alternate',
-          })
-          anime({
-            targets:'.pawimgC',
-            translateY: long,
-            duration: 500,
-            easing: 'easeInOutExpo',
-            direction: 'alternate',
-          })
-          anime({
-            targets:'.foodC',
-            translateY: -long,
-            delay: 300,
-            easing: 'easeInOutExpo',
-          })
-          this.result[this.flag-1] = this.problem[2]
-          break
-        }
-        default: break
+    notChoicing(t) {
+      const cur = this.choicing
+      switch(t) {
+        case 1:
+          return cur === 2 || cur === 3
+        case 2:
+          return cur === 1 || cur === 3
+        case 3:
+          return cur === 1 || cur === 2
       }
-      //this.next()
+    },
+    pick(choicing) {
+      if (this.repickTimer || this.choicing === choicing) return
+
+      this.reset()
+      let long = this.$refs.prin.getBoundingClientRect().height - 110 //爪子伸长的距离
+      const postfix = CHOICE_MAP[choicing] 
+      const duration = 500
+      anime({
+            targets:'.null' + postfix,
+            height: long,
+            duration: duration,
+            easing: 'easeInOutExpo',
+            direction: 'alternate',
+      })
+      anime({
+        targets:'.pawimg' + postfix,
+        translateY: long,
+        duration: duration,
+        easing: 'easeInOutExpo',
+        direction: 'alternate',
+      })
+      anime({
+        targets:'.food' + postfix,
+        translateY: -long,
+        delay: duration - 200,
+        easing: 'easeInOutExpo',
+      })
+      this.repickTimer = setTimeout(() => {
+        this.repickTimer = null
+      }, duration)
+      this.result[this.flag-1] = this.problem[choicing-1]
+      this.choicing = choicing
     },
     help() {
       this.$confirm('是否离开游戏?', '提示', {
@@ -301,35 +260,19 @@ export default {
           });          
         });
     },
+    reset() {
+      let long = this.$refs.prin.getBoundingClientRect().height-155;
+      const postfix = CHOICE_MAP[this.choicing]
+       anime({
+          targets:'.food' + postfix,
+          translateY: 0-long,
+        })
+        this.choicing = 0
+      
+    },
     next() {
       clearInterval(this.timer)
-      let long = this.$refs.prin.getBoundingClientRect().height-155;
-      let tag = this.release
-      if(tag == 1){
-        anime({
-          targets:'.foodA',
-          translateY: 0-long,
-        })
-        this.release = 0
-      }else if(tag == 2){
-        anime({
-          targets:'.foodB',
-          translateY: 0-long,
-        })
-        this.release = 0
-      }
-      else if(tag == 3){
-        anime({
-          targets:'.foodC',
-          translateY: 0-long,
-        })
-        this.release = 0
-      }
-      this.nextClose = true
-      this.choiceClose = true
-      this.choiceCloseA = false
-      this.choiceCloseB = false
-      this.choiceCloseC = false
+      this.reset()
       this.flag = this.flag + 1
       this.breaktime = false
       if(this.flag === this.info.length + 1) {
@@ -399,11 +342,7 @@ export default {
             this.breaktime = !this.breaktime
             this.result[index-1] = ''
           }
-          this.nextClose = false
-          this.choiceClose = false
-          this.choiceCloseA = true
-          this.choiceCloseB = true
-          this.choiceCloseC = true
+          this.choicing = 0
           return
         }
       }, 1000)
