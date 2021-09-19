@@ -15,7 +15,7 @@
         </div>
       </span>
       <span 
-        @click="musicPause" 
+        @click="musicToggle" 
         style="
           width: 20%;
           display: inline-block;
@@ -370,12 +370,15 @@ export default {
     musicPlay() {
       this.$refs.musicPlay.play()
     },
-    musicPause() {
+    musicToggle() {
       this.playMusic = !this.playMusic
       if(this.playMusic)
         this.$refs.musicPlay.play()
       else
         this.$refs.musicPlay.pause()
+    },
+    musicPause() {
+      this.$refs.musicPlay.pause()
     },
     timecount(index) {
       let tag = Math.ceil(index/5)
@@ -412,7 +415,13 @@ export default {
     this.getimg(token)
     this.musicPlay()
     this.timecount(this.flag)
+    window.addEventListener('blur', this.musicPause)
+    window.addEventListener('focus', this.musicPlay)
   },
+  beforeDestroy() {
+    window.removeEventListener('blur', this.musicPause)
+    window.removeEventListener('focus', this.musicPlay)
+  }
 }
 </script>
 
